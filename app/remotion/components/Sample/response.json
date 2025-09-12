@@ -1,11 +1,22 @@
 {
-    "title": "The Great Train Robbery Mystery",
-    "images": [
-        "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1080&h=1920&fit=crop&crop=center",
-        "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1080&h=1920&fit=crop&crop=center",
-        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1080&h=1920&fit=crop&crop=center",
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1080&h=1920&fit=crop&crop=center"
-    ],
-    "date": "2022-02-10T00:28:00+00:00",
-    "aiSummary": "The key to one of the most enduring mysteries of the last century may have died with a retired London black cab driver who was cremated in 2020. The driver was strongly believed to have been the 'great train robber' who got away with the 1963 heist. Investigators spent decades trying to identify this mysterious figure, known only as 'Alf Thomas' in criminal circles. His true identity remained hidden even from his closest associates, making him a legend in the criminal underworld. The case represents one of Britain's most famous unsolved mysteries, involving millions of pounds that were never recovered from the historic robbery."
+  "title": "The Future of AI-Powered Web Development: How MCP-UI is Revolutionizing Interactive Applications",
+  "date": "2024-12-15T14:30:00Z",
+  "slides": [
+    {
+      "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1080&h=1920&fit=crop&crop=center",
+      "text": "MCP-UI connects the Model Context Protocol with dynamic components to generate interfaces from server logic."
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1080&h=1920&fit=crop&crop=center",
+      "text": "AI reasoning and UI rendering work together, enabling adaptive, context-aware apps that react to user needs."
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1080&h=1920&fit=crop&crop=center",
+      "text": "Developers get faster iteration: AI proposes layouts and content, while code keeps control and safety."
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1080&h=1920&fit=crop&crop=center",
+      "text": "Result: rich, interactive experiences generated on demand, consistently styled and tuned for each scenario."
+    }
+  ]
 }

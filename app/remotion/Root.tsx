@@ -7,18 +7,22 @@ import {
   COMPOSITION_WIDTH,
 } from "./constants.mjs";
 import { Main } from "./components/Main";
+import  sampleResponse  from "./components/Sample/response.json";
+
 
 export const RemotionRoot = () => {
+  const inputProps = sampleResponse;
   return (
     <>
       <Composition
         id={COMPOSITION_ID}
+        inputProps={inputProps}
         component={Main}
         durationInFrames={DURATION_IN_FRAMES}
         fps={COMPOSITION_FPS}
         width={COMPOSITION_WIDTH}
         height={COMPOSITION_HEIGHT}
-        defaultProps={{}}
+        defaultProps={inputProps}
       />
     </>
   );

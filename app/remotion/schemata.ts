@@ -31,3 +31,16 @@ export type ProgressResponse =
       url: string;
       size: number;
     };
+
+export const StoryResponse = z.object({
+  title: z.string(),
+  date: z.string().datetime(),
+  slides: z
+    .array(
+      z.object({
+        image: z.string().url(),
+        text: z.string().max(120),
+      })
+    )
+    .min(1),
+});

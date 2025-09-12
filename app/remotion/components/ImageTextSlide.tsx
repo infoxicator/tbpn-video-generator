@@ -79,6 +79,7 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
             position: 'absolute',
             width: '100%',
             height: '100%',
+            padding: '1.25rem',
           }}
         >
           <div
@@ -97,27 +98,32 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
                 transform: 'skew(20deg)',
                 backgroundColor: '#5716A2',
                 border: '10px solid #731DD8',
-                padding: 20,
+                padding: 28,
                 borderRadius: '15px',
                 maxWidth: '80%',
+                boxSizing: 'border-box',
               }}
             >
               <div
                 style={{
                   transform: 'skew(-20deg)',
+                  padding: '0.5rem',
                 }}
               >
                 <p
                   style={{
                     color: '#ffffff',
-                    fontSize: '3.5rem',
+                    fontSize: '2.8rem',
+                    fontStyle: 'italic',
                     marginTop: 0,
                     marginBottom: 0,
-                    marginRight: 60,
-                    marginLeft: 60,
+                    marginRight: 20,
+                    marginLeft: 20,
                     fontFamily: 'verdana',
-                    textAlign: 'center',
+                    textAlign: 'left',
                     lineHeight: 1.2,
+                    overflowWrap: 'anywhere',
+                    wordBreak: 'break-word',
                   }}
                 >
                   {text}

@@ -1,8 +1,12 @@
+export interface SlideItem {
+	image: string;
+	text: string; // <=120 chars
+}
+
 export interface StoryData {
 	title: string;
-	images: string[];
 	date: string;
-	aiSummary: string;
+	slides: SlideItem[];
 }
 
 export interface BigBadGroupProps {

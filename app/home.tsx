@@ -11,16 +11,36 @@ import { z } from "zod";
 import { Main } from "./remotion/components/Main";
 import { RenderControls } from "./components/RenderControls";
 import { Spacing } from "./components/Spacing";
-import { CompositionProps } from "./remotion/schemata";
+import { StoryResponse } from "./remotion/schemata";
+import { useMcpUiInit, waitForRenderData } from "./utils/mcp";
+import  sampleResponse  from "./remotion/components/Sample/response.json";
 
-export default function Index() {
+export async function clientLoader({ request }: { request: Request }) {
+  try {
+    const renderData = await waitForRenderData(
+      StoryResponse,
+      { signal: request.signal, timeoutMs: 3_000 },
+    )
+    return renderData
+  } catch (error) {
+    console.error('error', error)
+    return sampleResponse
+  }
+}
+
+export function HydrateFallback() {
+  return <p>Loading Video...</p>;
+}
+
+export default function Index({ loaderData }: { loaderData: z.infer<typeof StoryResponse> } ) {
+  const storyData = loaderData
+  console.log('storyData', storyData)
+  useMcpUiInit()
   const [text, setText] = useState("MCP-Ui 🤝 Remotion");
 
-  const inputProps: z.infer<typeof CompositionProps> = useMemo(() => {
-    return {
-      title: text,
-    };
-  }, [text]);
+  const inputProps: z.infer<typeof StoryResponse> = useMemo(() => {
+    return storyData
+  }, [storyData]);
 
   return (
     <div>

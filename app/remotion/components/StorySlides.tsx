@@ -6,7 +6,6 @@ import {
 import { ImageTextSlide } from "./ImageTextSlide";
 import { TitleSlide } from "./TitleSlide";
 import { EndSlide } from "./EndSlide";
-import { splitTextIntoFourParts, prepareImageArray } from "../utils/textSplitter";
 import { StoryData } from "../types";
 
 interface StorySlidesProps {
@@ -16,9 +15,8 @@ interface StorySlidesProps {
 export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
   const { durationInFrames } = useVideoConfig();
 
-  // Process the data
-  const textParts = splitTextIntoFourParts(storyData.aiSummary);
-  const imageArray = prepareImageArray(storyData.images);
+  // New schema already provides 4 slide items with capped text
+  const slides = storyData.slides;
 
   // Calculate timing for the complete story flow
   const titleDuration = Math.floor(storyData.title.length * 1.5); // Dynamic title duration based on length
@@ -43,11 +41,7 @@ export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
         from={titleDuration}
         durationInFrames={slideDuration + (slideRemainder > 0 ? 1 : 0)}
       >
-        <ImageTextSlide
-          image={imageArray[0]}
-          text={textParts[0]}
-          slideIndex={0}
-        />
+        <ImageTextSlide image={slides[0]?.image} text={slides[0]?.text} slideIndex={0} />
       </Sequence>
 
       {/* Image & Text Slide 2 */}
@@ -55,11 +49,7 @@ export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
         from={titleDuration + slideDuration + (slideRemainder > 0 ? 1 : 0)}
         durationInFrames={slideDuration + (slideRemainder > 1 ? 1 : 0)}
       >
-        <ImageTextSlide
-          image={imageArray[1]}
-          text={textParts[1]}
-          slideIndex={1}
-        />
+        <ImageTextSlide image={slides[1]?.image} text={slides[1]?.text} slideIndex={1} />
       </Sequence>
 
       {/* Image & Text Slide 3 */}
@@ -67,11 +57,7 @@ export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
         from={titleDuration + 2 * slideDuration + (slideRemainder > 0 ? 1 : 0) + (slideRemainder > 1 ? 1 : 0)}
         durationInFrames={slideDuration + (slideRemainder > 2 ? 1 : 0)}
       >
-        <ImageTextSlide
-          image={imageArray[2]}
-          text={textParts[2]}
-          slideIndex={2}
-        />
+        <ImageTextSlide image={slides[2]?.image} text={slides[2]?.text} slideIndex={2} />
       </Sequence>
 
       {/* Image & Text Slide 4 */}
@@ -79,11 +65,7 @@ export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
         from={titleDuration + 3 * slideDuration + (slideRemainder > 0 ? 1 : 0) + (slideRemainder > 1 ? 1 : 0) + (slideRemainder > 2 ? 1 : 0)}
         durationInFrames={slideDuration}
       >
-        <ImageTextSlide
-          image={imageArray[3]}
-          text={textParts[3]}
-          slideIndex={3}
-        />
+        <ImageTextSlide image={slides[3]?.image} text={slides[3]?.text} slideIndex={3} />
       </Sequence>
 
       {/* End Frame with Call to Action */}

@@ -1,7 +1,7 @@
 import { VERSION } from "remotion";
 
 export const COMPOSITION_FPS = 30;
-export const DURATION_IN_FRAMES = 600; // ~20 seconds total: title + 4 slides + end frame
+export const DURATION_IN_FRAMES = 800; // doubled total duration to give slides 2x reading time
 export const COMPOSITION_WIDTH = 1080;
 export const COMPOSITION_HEIGHT = 1920;
 export const COMPOSITION_ID = "LogoAnimation";

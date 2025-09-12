@@ -1,71 +1,152 @@
 /**
- * Intelligently splits text into exactly 4 meaningful portions
- * Prioritizes sentence boundaries and balanced content distribution
+ * Robust splitter: returns EXACTLY 4 sentences that each fit in the text box.
+ * Strategy:
+ * 1) Tokenize sentences reliably (avoid common abbreviations & numbers like 3.14).
+ * 2) Ensure each sentence <= MAX_CHARS_PER_SENTENCE by word-wrapping/truncating with ellipsis.
+ * 3) If < 4 sentences, split long ones by words to synthesize additional sentences.
+ * 4) If > 4 sentences, keep the first 4 (already length-capped).
+ *
+ * Keep the original API signature to avoid changes elsewhere.
  */
 export function splitTextIntoFourParts(text: string): string[] {
+  const MAX_CHARS_PER_SENTENCE = 120; // Safe for typical 1080x1920 caption box at medium font sizes
+
   if (!text || text.trim().length === 0) {
     return ['', '', '', ''];
   }
 
-  // Clean and normalize the text
-  const cleanText = text.trim().replace(/\s+/g, ' ');
-  
-  // Split by sentences first
-  const sentences = cleanText
-    .split(/(?<=[.!?])\s+/)
-    .map(s => s.trim())
-    .filter(s => s.length > 0);
+  const clean = text
+    .replace(/[\n\r\t]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 
-  if (sentences.length === 0) {
-    return ['', '', '', ''];
-  }
+  const rawSentences = tokenizeSentences(clean);
+  const limited: string[] = [];
 
-  // If we have 4 or fewer sentences, use one per part
-  if (sentences.length <= 4) {
-    const result = [...sentences];
-    // Pad with empty strings if needed
-    while (result.length < 4) {
-      result.push('');
-    }
-    return result.slice(0, 4);
-  }
-
-  // For more than 4 sentences, distribute them across 4 parts
-  const targetLength = Math.floor(cleanText.length / 4);
-  const parts: string[] = [];
-  let currentPart = '';
-  let currentLength = 0;
-  
-  for (let i = 0; i < sentences.length; i++) {
-    const sentence = sentences[i];
-    const willExceedTarget = currentLength + sentence.length > targetLength;
-    const isLastSentence = i === sentences.length - 1;
-    const needsMoreParts = parts.length < 3; // We need to leave room for the last part
-    
-    if (willExceedTarget && currentPart.length > 0 && needsMoreParts) {
-      // Finish current part and start new one
-      parts.push(currentPart.trim());
-      currentPart = sentence;
-      currentLength = sentence.length;
+  for (const s of rawSentences) {
+    if (s.length <= MAX_CHARS_PER_SENTENCE) {
+      limited.push(ensureSentenceEnding(s));
     } else {
-      // Add to current part
-      currentPart += (currentPart.length > 0 ? ' ' : '') + sentence;
-      currentLength += sentence.length + (currentPart.length > sentence.length ? 1 : 0);
+      const chunks = chunkByWords(s, MAX_CHARS_PER_SENTENCE);
+      for (let i = 0; i < chunks.length; i++) {
+        const isLast = i === chunks.length - 1;
+        const suffix = isLast ? '' : '…';
+        limited.push(ensureSentenceEnding(chunks[i] + suffix));
+      }
     }
-    
-    // If this is the last sentence, or we have 3 parts already, finish up
-    if (isLastSentence || parts.length === 3) {
-      parts.push(currentPart.trim());
+    if (limited.length >= 8) break; // hard stop to avoid runaway
+  }
+
+  // If we still don't have 4, split the longest items by words until we do
+  while (limited.length < 4) {
+    const idx = indexOfLongest(limited);
+    if (idx === -1) break;
+    const longest = limited.splice(idx, 1)[0];
+    const extra = chunkByWords(longest.replace(/[.!?…]+$/, ''), MAX_CHARS_PER_SENTENCE);
+    if (extra.length <= 1) {
+      // Could not split meaningfully; pad and bail
+      limited.push(longest);
       break;
     }
+    for (const e of extra) {
+      limited.push(ensureSentenceEnding(e));
+      if (limited.length === 4) break;
+    }
   }
 
-  // Ensure we have exactly 4 parts
-  while (parts.length < 4) {
-    parts.push('');
-  }
+  // Trim to exactly 4
+  const result = limited.slice(0, 4);
+  while (result.length < 4) result.push('');
+  return result;
+}
 
-  return parts.slice(0, 4);
+// --- Helpers ---
+
+const ABBREVIATIONS = new Set([
+  'mr', 'mrs', 'ms', 'dr', 'prof', 'sr', 'jr', 'st', 'vs', 'etc', 'eg', 'ie',
+  'fig', 'no', 'inc', 'ltd', 'co', 'dept', 'u.s', 'u.k', 'u.s.a', 'a.m', 'p.m'
+]);
+
+function tokenizeSentences(input: string): string[] {
+  const sentences: string[] = [];
+  let current = '';
+  for (let i = 0; i < input.length; i++) {
+    const ch = input[i];
+    current += ch;
+
+    if (ch === '.' || ch === '!' || ch === '?') {
+      const prevChar = input[i - 1] || '';
+      const nextChar = input[i + 1] || '';
+
+      // Protect numbers like 3.14
+      const prevIsDigit = /\d/.test(prevChar);
+      const nextIsDigit = /\d/.test(nextChar);
+      if (ch === '.' && prevIsDigit && nextIsDigit) {
+        continue;
+      }
+
+      // Protect common abbreviations
+      const prevWordMatch = current.match(/([A-Za-z.]+)\.?\s*$/);
+      const prevWord = (prevWordMatch?.[1] || '').toLowerCase().replace(/\.+$/, '');
+      const isAbbrev = ABBREVIATIONS.has(prevWord);
+      if (isAbbrev) {
+        continue;
+      }
+
+      // Boundary: punctuation followed by space or end
+      const boundary = !nextChar || /\s/.test(nextChar);
+      if (boundary) {
+        sentences.push(current.trim());
+        current = '';
+        // Skip consecutive spaces after punctuation
+        while (i + 1 < input.length && /\s/.test(input[i + 1])) i++;
+      }
+    }
+  }
+  if (current.trim()) sentences.push(current.trim());
+  return sentences;
+}
+
+function chunkByWords(text: string, limit: number): string[] {
+  const words = text.split(/\s+/);
+  const chunks: string[] = [];
+  let current = '';
+
+  for (const word of words) {
+    const trial = current ? current + ' ' + word : word;
+    if (trial.length <= limit) {
+      current = trial;
+    } else {
+      if (current.length === 0) {
+        // Single extremely long token
+        chunks.push(word.slice(0, Math.max(1, limit - 1)) + '…');
+      } else {
+        chunks.push(current);
+        current = word.length > limit ? word.slice(0, limit - 1) + '…' : word;
+      }
+    }
+  }
+  if (current) chunks.push(current);
+  return chunks;
+}
+
+function ensureSentenceEnding(s: string): string {
+  const trimmed = s.trim();
+  if (/[.!?…]$/.test(trimmed)) return trimmed;
+  return trimmed + '.';
+}
+
+function indexOfLongest(arr: string[]): number {
+  if (arr.length === 0) return -1;
+  let max = 0;
+  let idx = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].length > max) {
+      max = arr[i].length;
+      idx = i;
+    }
+  }
+  return idx;
 }
 
 /**
