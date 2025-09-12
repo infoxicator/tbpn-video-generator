@@ -56,7 +56,6 @@ function sendMcpMessage<TypeType extends McpMessageType>(
 	payload: McpMessageTypes[TypeType],
 	options: MessageOptions = {},
 ): McpMessageReturnType<typeof options> {
-	debugger
 	if (type === 'tool') {
 		// Goose does not currentlly support tool calls, so change this to a prompt
 		const { toolName, params } = payload as McpMessageTypes['tool']

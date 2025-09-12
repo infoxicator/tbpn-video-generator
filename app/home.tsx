@@ -14,6 +14,7 @@ import { Spacing } from "./components/Spacing";
 import { StoryResponse } from "./remotion/schemata";
 import { useMcpUiInit, waitForRenderData } from "./utils/mcp";
 import  sampleResponse  from "./remotion/components/Sample/response.json";
+import { Loading } from "./components/Loading";
 
 export async function clientLoader({ request }: { request: Request }) {
   try {
@@ -29,12 +30,19 @@ export async function clientLoader({ request }: { request: Request }) {
 }
 
 export function HydrateFallback() {
-  return <p>Loading Video...</p>;
+  return (
+    <div className="max-w-screen-md m-auto mb-5">
+      <div className="overflow-hidden rounded-geist shadow-[0_0_200px_rgba(0,0,0,0.15)] mb-10 mt-16 bg-background">
+        <div className="aspect-[9/16] flex items-center justify-center">
+          <Loading compact title="Rendering video…" subtitle="🤖 *beep boop* AI neurons firing... pixels assembling... magic happening..." />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function Index({ loaderData }: { loaderData: z.infer<typeof StoryResponse> } ) {
   const storyData = loaderData
-  console.log('storyData', storyData)
   useMcpUiInit()
   const [text, setText] = useState("MCP-Ui 🤝 Remotion");
 

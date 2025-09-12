@@ -17,6 +17,7 @@ export const RemotionRoot = () => {
       <Composition
         id={COMPOSITION_ID}
         inputProps={inputProps}
+        // @ts-expect-error Remotion typing expects loose props; component is compatible at runtime
         component={Main}
         durationInFrames={DURATION_IN_FRAMES}
         fps={COMPOSITION_FPS}

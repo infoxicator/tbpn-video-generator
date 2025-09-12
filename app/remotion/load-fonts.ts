@@ -14,5 +14,5 @@ export const loadFonts = async () => {
       document.fonts.add(groteskFont);
       continueRender(waitForGroteskFont);
     })
-    .catch((err) => console.log("Error loading font", err));
+    .catch((err) => console.error("Error loading font", err));
 };
