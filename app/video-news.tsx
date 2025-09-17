@@ -1,6 +1,5 @@
 import { Player } from "@remotion/player";
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   DURATION_IN_FRAMES,
   COMPOSITION_FPS,
@@ -18,6 +17,7 @@ import { Input } from "./components/Input";
 import { Button } from "./components/Button";
 import { InputContainer } from "./components/InputContainer";
 import { AlignEnd } from "./components/AlignEnd";
+import { ImageUpload } from "./components/ImageUpload";
 
 type BlogLoaderData = {
   profilePic?: string | null;
@@ -81,48 +81,91 @@ export function HydrateFallback() {
 }
 
 export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
-  const navigate = useNavigate();
   const [pending, setPending] = useState(false);
   const [nameInput, setNameInput] = useState(loaderData.name ?? "");
-  const [profileInput, setProfileInput] = useState(loaderData.profilePic ?? "");
   const [companyInput, setCompanyInput] = useState(loaderData.company ?? "");
   const [text, setText] = useState("MCP-Ui 🤝 Remotion");
 
-  const storyData = loaderData.storyData ?? undefined;
-  const inputProps: z.infer<typeof StoryResponse> | undefined = useMemo(() => {
-    return storyData;
-  }, [storyData]);
+  const [storyData, setStoryData] = useState<z.infer<typeof StoryResponse> | undefined>(
+    loaderData.storyData ?? undefined
+  );
+  const [selectedProfileFile, setSelectedProfileFile] = useState<File | null>(null);
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(
+    loaderData.profilePic ?? null
+  );
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const inputProps = storyData;
 
   // Keep the input prefilled with the latest query param and clear pending after load
   useEffect(() => {
     setNameInput(loaderData.name ?? "");
-    setProfileInput(loaderData.profilePic ?? "");
+    setSelectedProfileFile(null);
+    setProfileImageUrl(loaderData.profilePic ?? null);
     setCompanyInput(loaderData.company ?? "");
+    setStoryData(loaderData.storyData ?? undefined);
+    setError(null);
+    setUploadingImage(false);
     setPending(false);
   }, [loaderData.name, loaderData.profilePic, loaderData.company, loaderData.storyData]);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError(null);
     const trimmedName = nameInput.trim();
-    const trimmedProfile = profileInput.trim();
     const trimmedCompany = companyInput.trim();
-    if (!trimmedName || !trimmedProfile || !trimmedCompany) {
+    if (!trimmedName || !trimmedCompany) {
+      setError("Please provide a name and company");
+      return;
+    }
+    if (uploadingImage) {
+      setError("Please wait for the image upload to finish");
+      return;
+    }
+
+    if (!profileImageUrl) {
+      setError("Please select an image to upload");
       return;
     }
     setPending(true);
-    // Navigate to same route with ?name=&image=&company=
-    const searchParams = new URLSearchParams({
-      name: trimmedName,
-      image: trimmedProfile,
-      company: trimmedCompany,
-    });
-    navigate(`/blog?${searchParams.toString()}`);
+    try {
+      const res = await fetch(
+        "https://postman.flows.pstmn.io/api/default/get-mcp-ui-stories",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: trimmedName,
+            profilePic: profileImageUrl,
+            company: trimmedCompany,
+          }),
+        }
+      );
+      if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
+      const data = await res.json();
+
+      const content = Array.isArray(data?.content) ? data.content : [];
+      const initial = content
+        .map((item: any) => item?.resource?._meta?.["mcpui.dev/ui-initial-render-data"])
+        .find((val: any) => Boolean(val));
+
+      const parsed = StoryResponse.safeParse(initial);
+      if (!parsed.success) throw parsed.error;
+      setStoryData(parsed.data);
+    } catch (err) {
+      const errMessage = err instanceof Error ? err.message : "Failed to load story";
+      setError(errMessage);
+      setStoryData(undefined);
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
     <div>
       <div className="max-w-screen-md m-auto mb-5">
-        {/* URL input form */}
+        {/* Story input form */}
         <form onSubmit={handleSubmit} className="mt-10 mb-6">
           <InputContainer>
             <label className="text-sm text-subtitle mb-2">Name</label>
@@ -134,12 +177,14 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
             />
           </InputContainer>
           <InputContainer>
-            <label className="text-sm text-subtitle mb-2">Profile Image URL</label>
-            <Input
+            <label className="text-sm text-subtitle mb-2">Profile Image</label>
+            <ImageUpload
               disabled={pending}
-              text={profileInput}
-              setText={setProfileInput}
-              placeholder="https://example.com/avatar.jpg"
+              initialImageUrl={profileImageUrl}
+              onFileSelect={setSelectedProfileFile}
+              onImageUploaded={setProfileImageUrl}
+              onUploadingChange={setUploadingImage}
+              selectedFile={selectedProfileFile}
             />
           </InputContainer>
           <InputContainer>
@@ -152,13 +197,16 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
             />
             <AlignEnd>
               <div className="mt-3">
-                <Button loading={pending} disabled={pending}>
+                <Button loading={pending || uploadingImage} disabled={pending || uploadingImage}>
                   Load
                 </Button>
               </div>
             </AlignEnd>
           </InputContainer>
         </form>
+        {error ? (
+          <div className="text-red-500 text-sm mb-6">{error}</div>
+        ) : null}
 
         {/* Only render the player once we have story data */}
         {pending || !inputProps ? (
