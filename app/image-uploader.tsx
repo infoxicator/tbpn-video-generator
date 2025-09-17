@@ -26,44 +26,13 @@ type BlogLoaderData = {
 
 export async function clientLoader({ request }: { request: Request }): Promise<BlogLoaderData> {
   const url = new URL(request.url);
-  const profilePic = url.searchParams.get("image");
   const name = url.searchParams.get("name");
   const company = url.searchParams.get("company");
 
-  if (!profilePic || !name || !company) {
+  if (!name || !company) {
     return { profilePic: null, name: null, company: null, storyData: null };
   }
-
-  try {
-    // Using POST for reliability since browsers ignore GET bodies
-    const res = await fetch(
-      "https://postman.flows.pstmn.io/api/default/get-mcp-ui-stories",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          profilePic,
-          company,
-        }),
-      }
-    );
-    if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
-    const data = await res.json();
-
-    // Extract story data from nested content structure
-    const content = Array.isArray(data?.content) ? data.content : [];
-    const initial = content
-      .map((item: any) => item?.resource?._meta?.["mcpui.dev/ui-initial-render-data"]) // prefer key access with brackets
-      .find((val: any) => Boolean(val));
-
-    const parsed = StoryResponse.safeParse(initial);
-    if (!parsed.success) throw parsed.error;
-    return { profilePic, name, company, storyData: parsed.data };
-  } catch (_err) {
-    // On error, keep UI visible and allow retry via input
-    return { profilePic, name, company, storyData: null };
-  }
+    return { profilePic: null, name, company, storyData: null };
 }
 
 export function HydrateFallback() {
@@ -151,8 +120,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
     }
   };
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function handleSubmit() {
     setError(null);
     const trimmedName = nameInput.trim();
     const trimmedCompany = companyInput.trim();
@@ -213,40 +181,24 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
     <div className="bg-[#05060d] tbpn-body min-h-screen text-[#f4f6ff] pb-16">
       <div className="max-w-screen-lg m-auto px-6 md:px-10">
         {/* Story input form */}
-        <form onSubmit={handleSubmit} className="mt-14 mb-10">
+        <div className="mt-14 mb-10">
           <div className="tbpn-panel px-7 py-9 md:px-12 md:py-12 flex flex-col gap-7 text-[#e1fff5]">
-            <div>
-              <p className="tbpn-chip">Rumor Intake</p>
-              <h2 className="tbpn-headline text-4xl md:text-5xl text-white mt-4">Let's script their grand exit</h2>
-              <p className="text-sm md:text-base text-[#b5f9db] mt-4 max-w-2xl">
-                Spill the details—who's peacing out, where they’re landing, and which promo pic belongs on the farewell ticker.
-              </p>
-            </div>
-
-            <div className="grid gap-5">
-              <div>
-              <label className="tbpn-label">Star of the show</label>
                 <Input
+                  type="hidden"
                   disabled={pending}
                   text={nameInput}
                   setText={setNameInput}
                   placeholder="e.g. Casey the Code Whisperer"
                   className="mt-3 bg-[#050b09] border-[#1c5f47] focus:border-[#28fcb0] text-[#e1fff5] placeholder:text-[#3f7f68]"
                 />
-                <p className="text-xs text-[#6fdab2] mt-3">We'll splash this name across the chyron like breaking news.</p>
-              </div>
-
-              <div>
-                <label className="tbpn-label">New gig aka the destination</label>
                 <Input
+                  type="hidden"
                   disabled={pending}
                   text={companyInput}
                   setText={setCompanyInput}
                   placeholder="Where are they defecting to?"
                   className="mt-3 bg-[#050b09] border-[#1c5f47] focus:border-[#28fcb0] text-[#e1fff5] placeholder:text-[#3f7f68]"
                 />
-                <p className="text-xs text-[#6fdab2] mt-3">Name the shiny new playground so we can hype their next chapter.</p>
-              </div>
 
               <div>
                 <label className="tbpn-label">Choose their glamour shot</label>
@@ -316,7 +268,6 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
                     </p>
                   </div>
                 ) : null}
-              </div>
             </div>
 
             {error ? (
@@ -327,7 +278,8 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
 
             <div className="flex justify-center">
               <Button
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
                 loading={pending || uploadingImage}
                 disabled={pending || uploadingImage}
                 className="tbpn-headline tracking-[0.22em] text-sm h-12 px-8 bg-[#00b06f] text-black border-0 hover:bg-[#00dd8b] disabled:bg-[#0f3a28] disabled:text-[#76cbaa]"
@@ -336,7 +288,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
               </Button>
             </div>
           </div>
-        </form>
+        </div>
 
         {/* Only render the player once we have story data */}
         <div ref={playerContainerRef} className="mx-auto w-full max-w-[360px]">
@@ -371,16 +323,6 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
             </div>
           ) : null}
 
-          {!pending && !inputProps ? (
-            <div className="relative overflow-hidden rounded-[28px] border border-dashed border-[#1c5f47] bg-[#03120d] mb-12 mt-8 aspect-[9/16] flex items-center justify-center text-center px-6">
-              <div>
-                <p className="tbpn-headline text-xl text-white">No reel yet</p>
-                <p className="mt-3 text-sm text-[#6fdab2]">
-                  Fill in the rumor form and smash “Spin the rumor reel” to generate a preview.
-                </p>
-              </div>
-            </div>
-          ) : null}
         </div>
         {inputProps ? (
           <RenderControls inputProps={inputProps} />
