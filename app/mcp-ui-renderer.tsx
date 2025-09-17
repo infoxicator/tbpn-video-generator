@@ -12,12 +12,21 @@ import { Main } from "./remotion/components/Main";
 import { RenderControls } from "./components/RenderControls";
 import { Spacing } from "./components/Spacing";
 import { StoryResponse } from "./remotion/schemata";
-import { useMcpUiInit } from "./utils/mcp";
+import { useMcpUiInit, waitForRenderData } from "./utils/mcp";
 import sampleResponse from "./remotion/components/Sample/response.json";
 import { Loading } from "./components/Loading";
 
-export async function clientLoader() {
-  return sampleResponse;
+export async function clientLoader({ request }: { request: Request }) {
+  try {
+    const renderData = await waitForRenderData(StoryResponse, {
+      signal: request.signal,
+      timeoutMs: 3_000,
+    });
+    return renderData;
+  } catch (error) {
+    console.error("error", error);
+    return sampleResponse;
+  }
 }
 
 export function HydrateFallback() {
