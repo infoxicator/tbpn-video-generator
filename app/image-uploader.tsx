@@ -16,6 +16,7 @@ import { Loading } from "./components/Loading";
 import { Input } from "./components/Input";
 import { Button } from "./components/Button";
 import { ImageUpload, ImageUploadHandle } from "./components/ImageUpload";
+import { useMcpUiInit } from "./utils/mcp";
 
 type BlogLoaderData = {
   profilePic?: string | null;
@@ -48,6 +49,7 @@ export function HydrateFallback() {
 }
 
 export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
+  useMcpUiInit();
   const [pending, setPending] = useState(false);
   const [nameInput, setNameInput] = useState(loaderData.name ?? "");
   const [companyInput, setCompanyInput] = useState(loaderData.company ?? "");
