@@ -7,4 +7,6 @@ export default [
   route("/mcp-ui-renderer", "./mcp-ui-renderer.tsx"),
   route("/api/lambda/progress", "./progress.tsx"),
   route("/api/lambda/render", "./render.tsx"),
+  route("/api/story-shares", "./api.story-shares.tsx"),
+  route("/share/:shareId", "./share-player.tsx"),
 ] satisfies RouteConfig;
