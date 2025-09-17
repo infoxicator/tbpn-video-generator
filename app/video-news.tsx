@@ -213,7 +213,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
     <div className="bg-[#05060d] tbpn-body min-h-screen text-[#f4f6ff] pb-16">
       <div className="max-w-screen-lg m-auto px-6 md:px-10">
         {/* Story input form */}
-        <form onSubmit={handleSubmit} className="mt-14 mb-10">
+        <form onSubmit={handleSubmit}>
           <div className="tbpn-panel px-7 py-9 md:px-12 md:py-12 flex flex-col gap-7 text-[#e1fff5]">
             <div>
               <p className="tbpn-chip">Rumor Intake</p>

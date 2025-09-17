@@ -42,7 +42,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="mt-14">
         <Outlet />
         <ScrollRestoration />
         <Scripts />

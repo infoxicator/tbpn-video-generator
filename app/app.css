@@ -20,6 +20,15 @@
   --subtitle: #666;
 }
 
+html {
+  background-color: #05060d;
+}
+
+body {
+  margin: 0;
+  background-color: #05060d;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #000000;
