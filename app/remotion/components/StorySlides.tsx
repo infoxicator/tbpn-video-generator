@@ -9,14 +9,16 @@ interface StorySlidesProps {
 }
 
 export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
-  const { durationInFrames } = useVideoConfig();
+  const { durationInFrames, fps } = useVideoConfig();
 
   const slides = storyData.slides ?? [];
   const mainImage = storyData.mainImage ?? slides[0]?.image;
   const detailSlides = slides;
   const detailCount = detailSlides.length;
 
-  const titleDuration = Math.max(90, Math.floor(storyData.title.length * 1.5));
+  const baseTitleDuration = Math.max(90, Math.floor(storyData.title.length * 1.5));
+  const gapAfterTitle = detailCount > 0 ? Math.round(fps) : 0;
+  const titleDuration = baseTitleDuration + gapAfterTitle;
   const endDuration = 90;
   const remainingFrames = durationInFrames - titleDuration - endDuration;
   const safeRemainingFrames = Math.max(0, remainingFrames);
