@@ -49,7 +49,7 @@ export function HydrateFallback() {
 }
 
 export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
-  useMcpUiInit();
+  
   const [pending, setPending] = useState(false);
   const [nameInput, setNameInput] = useState(loaderData.name ?? "");
   const [companyInput, setCompanyInput] = useState(loaderData.company ?? "");
@@ -72,6 +72,18 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
   const imageUploadRef = useRef<ImageUploadHandle | null>(null);
 
   const inputProps = storyData;
+
+  useEffect(() => {
+		window.parent.postMessage({ type: 'ui-lifecycle-iframe-ready' }, '*')
+
+		const height = document.documentElement.scrollHeight
+		const width = document.documentElement.scrollWidth
+
+		window.parent.postMessage(
+			{ type: 'ui-size-change', payload: { height, width } },
+			'*',
+		)
+	}, [storyData])
 
   // Keep the input prefilled with the latest query param and clear pending after load
   useEffect(() => {
