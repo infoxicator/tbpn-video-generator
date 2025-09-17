@@ -1,22 +1,23 @@
 {
-  "title": "The Future of AI-Powered Web Development: How MCP-UI is Revolutionizing Interactive Applications",
+  "title": "Ruben Casas Joins MCP-UI",
   "date": "2024-12-15T14:30:00Z",
+  "mainImage": "https://messages-prod.27c852f3500f38c1e7786e2c9ff9e48f.r2.cloudflarestorage.com/09e30ac5-cae9-4e76-aced-f2349ddcd71a/1758060045316-3feffced-3675-43ff-8db3-34ed1243390a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=c86e09ae0bc1d897b03dfaa30a8b51f3%2F20250916%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20250916T220045Z&X-Amz-Expires=3600&X-Amz-Signature=f966a45e2e0846674a3e0df1b18787cae0304439eb290edf814c992e122fe87e&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
   "slides": [
     {
-      "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1080&h=1920&fit=crop&crop=center",
-      "text": "MCP-UI connects the Model Context Protocol with dynamic components to generate interfaces from server logic."
+      "image": "https://messages-prod.27c852f3500f38c1e7786e2c9ff9e48f.r2.cloudflarestorage.com/09e30ac5-cae9-4e76-aced-f2349ddcd71a/1758060045316-3feffced-3675-43ff-8db3-34ed1243390a.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=c86e09ae0bc1d897b03dfaa30a8b51f3%2F20250916%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20250916T220045Z&X-Amz-Expires=3600&X-Amz-Signature=f966a45e2e0846674a3e0df1b18787cae0304439eb290edf814c992e122fe87e&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject",
+      "text": "MCP-UI literally sent a fruit basket coded in TypeScript to woo Ruben—he forked it and merged himself into their team." 
     },
     {
       "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1080&h=1920&fit=crop&crop=center",
-      "text": "AI reasoning and UI rendering work together, enabling adaptive, context-aware apps that react to user needs."
+      "text": "During negotiations, Ruben demanded dark mode in every conference room; MCP-UI responded by turning the entire campus’ lights off until he signed." 
     },
     {
       "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1080&h=1920&fit=crop&crop=center",
-      "text": "Developers get faster iteration: AI proposes layouts and content, while code keeps control and safety."
+      "text": "His onboarding involved a code review with a sentient AI who only speaks in GIFs—Ruben nodded, pretended to understand, and deployed to prod." 
     },
     {
       "image": "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1080&h=1920&fit=crop&crop=center",
-      "text": "Result: rich, interactive experiences generated on demand, consistently styled and tuned for each scenario."
+      "text": "Sources say Ruben is already planning a refactor of MCP-UI’s coffee machine firmware to add CI/CD (Coffee Integration/Continuous Drip)." 
     }
   ]
 }

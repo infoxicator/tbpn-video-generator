@@ -68,7 +68,10 @@ function sendMcpMessage<TypeType extends McpMessageType>(
 	const { signal: givenSignal, schema, timeoutMs = 3_000 } = options
 	const timeoutSignal =
 		typeof timeoutMs === 'number' ? AbortSignal.timeout(timeoutMs) : undefined
-	const signals = [givenSignal, timeoutSignal].filter(Boolean)
+	const signals: AbortSignal[] = [
+		givenSignal,
+		timeoutSignal,
+	].filter(Boolean) as AbortSignal[]
 	const signal = signals.length > 0 ? AbortSignal.any(signals) : undefined
 
 	const messageId = crypto.randomUUID()
@@ -80,16 +83,9 @@ function sendMcpMessage<TypeType extends McpMessageType>(
 		}
 
 		if (!window.parent || window.parent === window) {
-			console.log(`[MCP] No parent frame available. Would have sent message:`, {
-				type,
-				messageId,
-				payload,
-			})
 			reject(new Error('No parent frame available'))
 			return
 		}
-
-		console.log('posting to parent', { type, messageId, payload })
 		window.parent.postMessage({ type, messageId, payload }, '*')
 
 		function handleMessage(event: MessageEvent) {
@@ -136,12 +132,14 @@ export function waitForRenderData<RenderData>(
 	schema: z.ZodSchema<RenderData>,
 	opts: { signal?: AbortSignal; timeoutMs?: number } = {},
 ): Promise<RenderData> {
-    console.log('waitForRenderData', schema, opts)
 	const { signal: givenSignal, timeoutMs = 3_000 } = opts
 	const timeoutSignal =
 		typeof timeoutMs === 'number' ? AbortSignal.timeout(timeoutMs) : undefined
 
-	const signals = [givenSignal, timeoutSignal].filter(Boolean)
+	const signals: AbortSignal[] = [
+		givenSignal,
+		timeoutSignal,
+	].filter(Boolean) as AbortSignal[]
 	const signal = AbortSignal.any(signals)
 
 	return new Promise((resolve, reject) => {
@@ -170,7 +168,6 @@ export function waitForRenderData<RenderData>(
 		}
 
 		function handleMessage(event: MessageEvent) {
-            console.log('handleMessage', event)
 			if (event.data?.type !== 'ui-lifecycle-iframe-render-data') return
 
 			const result = schema.safeParse(event.data.payload)

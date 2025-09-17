@@ -1,11 +1,12 @@
 export interface SlideItem {
 	image: string;
-	text: string; // <=120 chars
+	text: string; // <=200 chars
 }
 
 export interface StoryData {
 	title: string;
 	date: string;
+	mainImage?: string;
 	slides: SlideItem[];
 }
 

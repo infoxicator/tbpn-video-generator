@@ -7,47 +7,91 @@ import {
 } from "remotion";
 
 interface ImageTextSlideProps {
-  image: string;
-  text: string;
+  image?: string;
+  text?: string;
   slideIndex: number;
+  totalSlides: number;
 }
+
+const accentColor = "#19c48a";
 
 export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
   image,
   text,
   slideIndex,
+  totalSlides,
 }) => {
   const frame = useCurrentFrame();
-  const videoConfig = useVideoConfig();
+  const { fps } = useVideoConfig();
 
-  // Calculate slide duration for proper timing
-  const slideDuration = videoConfig.durationInFrames;
-  
-  // Text slide-in animation (matching original TextTest component)
-  const slideIn = spring({
+  const textLift = spring({
     frame,
-    config: {
-      mass: 0.5,
-    },
-    from: 1080,
+    fps,
+    from: 80,
     to: 0,
-    fps: 30,
+    config: {
+      damping: 120,
+      stiffness: 180,
+    },
   });
 
-  // Text slide-out animation (matching original TextTest component)
-  const slideOut = spring({
-    frame: frame - ((slideDuration / 10) * 9),
-    config: {
-      mass: 0.1,
-    },
-    from: 0,
-    to: 700,
-    fps: 30,
-  });
+  const placement = (() => {
+    switch (slideIndex) {
+      case 1:
+        return {
+          wrapper: {
+            top: 120,
+            bottom: "auto" as const,
+            justifyContent: "flex-start" as const,
+            alignItems: "flex-start" as const,
+          },
+          textAlign: "left" as const,
+        };
+      case 2:
+        return {
+          wrapper: {
+            top: 120,
+            bottom: "auto" as const,
+            justifyContent: "flex-end" as const,
+            alignItems: "flex-start" as const,
+          },
+          textAlign: "right" as const,
+        };
+      case 3:
+        return {
+          wrapper: {
+            top: "50%" as const,
+            left: 0,
+            right: 0,
+            bottom: "auto" as const,
+            transform: "translateY(-50%)",
+            justifyContent: "center" as const,
+            alignItems: "center" as const,
+          },
+          textAlign: "center" as const,
+          maxWidth: "70%",
+        };
+      default:
+        return {
+          wrapper: {
+            justifyContent: "flex-end" as const,
+            alignItems: "flex-end" as const,
+          },
+          textAlign: "left" as const,
+        };
+    }
+  })();
 
   return (
-    <AbsoluteFill>
-      {/* Background Image */}
+    <AbsoluteFill
+      style={{
+        backgroundColor: "#05291f",
+        overflow: "hidden",
+        position: "relative",
+        color: "#ffffff",
+        fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+      }}
+    >
       <AbsoluteFill
         style={{
           justifyContent: "center",
@@ -55,81 +99,83 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
           overflow: "hidden",
         }}
       >
-        <Img
-          src={image}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-          onError={() => {
-            console.warn(`Failed to load image: ${image}`);
-          }}
-        />
+        {image ? (
+          <Img
+            src={image}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+            onError={() => {
+              console.warn(`Failed to load image: ${image}`);
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "#0d3a2b",
+            }}
+          />
+        )}
       </AbsoluteFill>
 
-      {/* Text Content with original styling */}
+      {/* Overlay tint */}
+      <AbsoluteFill
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(5, 56, 38, 0.7), rgba(4, 31, 23, 0.9))",
+        }}
+      />
+
+      {/* Texture */}
+      <AbsoluteFill
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+          opacity: 0.25,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Text content */}
       {text && (
         <div
           style={{
-            transform: `translateY(${slideOut}px)`,
-            transformOrigin: "bottom center",
-            display: 'flex',
-            alignItems: 'center',
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            padding: '1.25rem',
+            position: "absolute",
+            left: 80,
+            right: 80,
+            bottom: 120,
+            display: "flex",
+            zIndex: 5,
+            ...placement.wrapper,
           }}
         >
           <div
             style={{
-              marginTop: 'auto',
-              padding: '3rem',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-              transform: `translateX(${slideIn}px)`,
-              width: '100%',
+              transform: `translateY(${textLift}px)`,
+              background: "rgba(9, 74, 52, 0.92)",
+              borderRadius: 26,
+              padding: "38px 44px",
+              maxWidth: placement.maxWidth ?? "62%",
+              border: "1px solid rgba(255,255,255,0.2)",
+              boxShadow: "0 24px 48px rgba(0, 0, 0, 0.45)",
             }}
           >
-            <div
+            <p
               style={{
-                transform: 'skew(20deg)',
-                backgroundColor: '#5716A2',
-                border: '10px solid #731DD8',
-                padding: 28,
-                borderRadius: '15px',
-                maxWidth: '80%',
-                boxSizing: 'border-box',
+                fontSize: 40,
+                lineHeight: 1.3,
+                margin: 0,
+                fontWeight: 600,
+                textAlign: placement.textAlign,
               }}
             >
-              <div
-                style={{
-                  transform: 'skew(-20deg)',
-                  padding: '0.5rem',
-                }}
-              >
-                <p
-                  style={{
-                    color: '#ffffff',
-                    fontSize: '2.8rem',
-                    fontStyle: 'italic',
-                    marginTop: 0,
-                    marginBottom: 0,
-                    marginRight: 20,
-                    marginLeft: 20,
-                    fontFamily: 'verdana',
-                    textAlign: 'left',
-                    lineHeight: 1.2,
-                    overflowWrap: 'anywhere',
-                    wordBreak: 'break-word',
-                  }}
-                >
-                  {text}
-                </p>
-              </div>
-            </div>
+              {text}
+            </p>
           </div>
         </div>
       )}
@@ -139,26 +185,31 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
         style={{
           justifyContent: "flex-start",
           alignItems: "center",
-          paddingTop: "60px",
+          paddingTop: 60,
         }}
       >
         <div
           style={{
             display: "flex",
-            gap: "8px",
+            gap: 10,
+            zIndex: 6,
           }}
         >
-          {[0, 1, 2, 3].map((index) => (
+          {Array.from({ length: totalSlides }).map((_, index) => (
             <div
-              key={index}
+              key={`indicator-${index}`}
               style={{
-                width: "60px",
-                height: "3px",
+                width: 68,
+                height: 6,
                 backgroundColor:
                   index === slideIndex
-                    ? "#FFD166"  // Yellow accent color from original
+                    ? accentColor
                     : "rgba(255, 255, 255, 0.3)",
-                borderRadius: "2px",
+                borderRadius: 12,
+                boxShadow:
+                  index === slideIndex
+                    ? "0 0 18px rgba(25, 196, 138, 0.6)"
+                    : undefined,
               }}
             />
           ))}

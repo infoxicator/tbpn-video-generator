@@ -5,8 +5,6 @@ import {
   useVideoConfig,
 } from "remotion";
 
-import TldrLogo from "./Sample/Logo";
-
 // Simple arrow down component matching original
 const ArrowDown = ({ fill = 'black' }) => (
   <svg
@@ -75,36 +73,41 @@ export const EndSlide: React.FC<EndSlideProps> = ({ callToAction }) => {
       style={{
         height: '100%',
         width: '100%',
-        backgroundColor: '#5716A2',
-        padding: `50px 70px 150px 70px`,
-        color: '#FFD166',
+        background: 'linear-gradient(180deg, #0b5a3d 0%, #043226 100%)',
+        padding: `60px 90px 150px 90px`,
+        color: '#ffffff',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
       }}
     >
-      {/* Logo and TLDR Stories header */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          gap: '20px',
+          gap: '16px',
         }}
       >
-        <TldrLogo fill="#FFD166" />
-        <h4
+        <span
           style={{
-            fontFamily: 'SF Pro Text, Helvetica, Arial',
-            fontWeight: 'bold',
-            fontSize: 50,
-            textAlign: 'center',
-            margin: 0,
+            letterSpacing: 8,
+            fontSize: 22,
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.7)',
           }}
         >
-          TLDR Stories
-        </h4>
+          MCP-UI 🤝 REMOTION
+        </span>
+        <div
+          style={{
+            height: 4,
+            width: 120,
+            backgroundColor: '#19c48a',
+            borderRadius: 999,
+          }}
+        />
       </div>
       
       {/* Animated call to action text */}
@@ -112,8 +115,8 @@ export const EndSlide: React.FC<EndSlideProps> = ({ callToAction }) => {
         style={{
           fontFamily: 'SF Pro Text, Helvetica, Arial',
           fontWeight: 'bold',
-          fontSize: 130,
-          textAlign: 'left',
+          fontSize: 120,
+          textAlign: 'center',
           width: '100%',
           margin: 0,
         }}
@@ -145,7 +148,7 @@ export const EndSlide: React.FC<EndSlideProps> = ({ callToAction }) => {
       
       {/* Animated arrow down */}
       <span style={{ transform: `scale(${scaleIn})` }}>
-        <ArrowDown fill="#FFD166" />
+        <ArrowDown fill="#19c48a" />
       </span>
     </AbsoluteFill>
   );

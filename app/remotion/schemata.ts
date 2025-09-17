@@ -35,11 +35,12 @@ export type ProgressResponse =
 export const StoryResponse = z.object({
   title: z.string(),
   date: z.string().datetime(),
+  mainImage: z.string().url().optional(),
   slides: z
     .array(
       z.object({
         image: z.string().url(),
-        text: z.string().max(120),
+        text: z.string().max(200),
       })
     )
     .min(1),
