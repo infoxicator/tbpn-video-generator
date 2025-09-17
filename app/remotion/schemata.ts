@@ -40,7 +40,7 @@ export const StoryResponse = z.object({
     .array(
       z.object({
         image: z.string().url(),
-        text: z.string().max(200),
+        text: z.string().max(500),
       })
     )
     .min(1),

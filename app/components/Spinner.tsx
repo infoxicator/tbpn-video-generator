@@ -16,7 +16,8 @@ const translated = translatePath(path, viewBox / 2 - width / 2, viewBox * 0.03);
 
 export const Spinner: React.FC<{
   size: number;
-}> = ({ size }) => {
+  color?: string;
+}> = ({ size, color = "var(--foreground)" }) => {
   const style = useMemo(() => {
     return {
       width: size,
@@ -37,7 +38,7 @@ export const Spinner: React.FC<{
             }}
             key={index}
             d={translated}
-            fill="var(--foreground)"
+            fill={color}
           ></path>
         );
       })}

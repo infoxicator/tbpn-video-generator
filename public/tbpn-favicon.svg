@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="tbpnGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16ffb9"/>
+      <stop offset="55%" stop-color="#05b47d"/>
+      <stop offset="100%" stop-color="#024f36"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#tbpnGradient)"/>
+  <g fill="#04120d" opacity="0.16">
+    <rect x="64" y="112" width="384" height="40" rx="20"/>
+    <rect x="64" y="360" width="384" height="40" rx="20"/>
+  </g>
+  <g fill="#04120d" opacity="0.18">
+    <circle cx="128" cy="256" r="32"/>
+  </g>
+  <text x="50%" y="58%" text-anchor="middle" font-family="'Space Grotesk', 'Saira', 'Montserrat', sans-serif" font-size="220" font-weight="700" fill="#f3fffa" letter-spacing="18">
+    TBPN
+  </text>
+</svg>

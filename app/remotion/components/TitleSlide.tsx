@@ -1,6 +1,7 @@
 import {
   AbsoluteFill,
   Img,
+  interpolate,
   spring,
   useCurrentFrame,
   useVideoConfig,
@@ -18,6 +19,35 @@ export const TitleSlide: React.FC<TitleSlideProps> = ({ title, image }) => {
   const { fps } = useVideoConfig();
 
   const words = title.split(" ").map((word) => ` ${word} `);
+  const appearFrame = Math.round(fps * 1);
+  const titleFrame = Math.max(frame - appearFrame, 0);
+  const overlayOpacity = interpolate(
+    frame,
+    [appearFrame - 2, appearFrame + 10],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+  const titleOpacity = interpolate(
+    frame,
+    [appearFrame, appearFrame + 10],
+    [0, 1],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
+  const titleTranslate = interpolate(
+    frame,
+    [appearFrame, appearFrame + 10],
+    [30, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }
+  );
 
   return (
     <AbsoluteFill
@@ -46,6 +76,7 @@ export const TitleSlide: React.FC<TitleSlideProps> = ({ title, image }) => {
       <AbsoluteFill
         style={{
           background: "linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.7))",
+          opacity: overlayOpacity,
         }}
       />
 
@@ -72,6 +103,8 @@ export const TitleSlide: React.FC<TitleSlideProps> = ({ title, image }) => {
             WebkitBackdropFilter: "blur(8px)",
             boxShadow: "0 18px 38px rgba(0,0,0,0.45)",
             width: "100%",
+            opacity: titleOpacity,
+            transform: `translateY(${titleTranslate}px)`
           }}
         >
           <span
@@ -107,8 +140,9 @@ export const TitleSlide: React.FC<TitleSlideProps> = ({ title, image }) => {
             }}
           >
             {words.map((word, index) => {
+              const wordFrame = Math.max(titleFrame - index * 5, 0);
               const scale = spring({
-                frame: frame - index * 5,
+                frame: wordFrame,
                 fps,
                 config: {
                   damping: 120,

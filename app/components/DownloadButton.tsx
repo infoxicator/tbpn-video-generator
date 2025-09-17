@@ -5,22 +5,34 @@ import { Spacing } from "./Spacing";
 
 const Megabytes: React.FC<{
   sizeInBytes: number;
-}> = ({ sizeInBytes }) => {
+  className?: string;
+}> = ({ sizeInBytes, className }) => {
   const megabytes = Intl.NumberFormat("en", {
     notation: "compact",
     style: "unit",
     unit: "byte",
     unitDisplay: "narrow",
   }).format(sizeInBytes);
-  return <span className="opacity-60">{megabytes}</span>;
+  return <span className={className ?? "opacity-60"}>{megabytes}</span>;
 };
 
 export const DownloadButton: React.FC<{
   state: State;
   undo: () => void;
-}> = ({ state, undo }) => {
+  wrapperClassName?: string;
+  downloadButtonClassName?: string;
+  undoButtonClassName?: string;
+  sizeLabelClassName?: string;
+}> = ({
+  state,
+  undo,
+  wrapperClassName,
+  downloadButtonClassName,
+  undoButtonClassName,
+  sizeLabelClassName,
+}) => {
   if (state.status === "rendering") {
-    return <Button disabled>Download video</Button>;
+    return <Button disabled className={downloadButtonClassName}>Download video</Button>;
   }
 
   if (state.status !== "done") {
@@ -28,16 +40,19 @@ export const DownloadButton: React.FC<{
   }
 
   return (
-    <div className="flex">
-      <Button secondary onClick={undo}>
+    <div className={`flex ${wrapperClassName ?? ""}`}>
+      <Button secondary onClick={undo} className={undoButtonClassName}>
         <UndoIcon></UndoIcon>
       </Button>
       <Spacing></Spacing>
       <a href={state.url}>
-        <Button>
+        <Button className={downloadButtonClassName}>
           Download video
           <Spacing></Spacing>
-          <Megabytes sizeInBytes={state.size}></Megabytes>
+          <Megabytes
+            sizeInBytes={state.size}
+            className={sizeLabelClassName}
+          ></Megabytes>
         </Button>
       </a>
     </div>

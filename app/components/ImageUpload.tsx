@@ -1,4 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useLanguage } from "../hooks/useLanguage";
 
 type ImageUploadProps = {
@@ -10,14 +18,24 @@ type ImageUploadProps = {
   disabled?: boolean;
 };
 
-export const ImageUpload: React.FC<ImageUploadProps> = ({
-  onFileSelect,
-  onImageUploaded,
-  selectedFile,
-  initialImageUrl,
-  onUploadingChange,
-  disabled,
-}) => {
+export type ImageUploadHandle = {
+  openFileDialog: () => void;
+};
+
+const ImageUploadInner: React.ForwardRefRenderFunction<
+  ImageUploadHandle,
+  ImageUploadProps
+> = (
+  {
+    onFileSelect,
+    onImageUploaded,
+    selectedFile,
+    initialImageUrl,
+    onUploadingChange,
+    disabled,
+  },
+  ref,
+) => {
   const { t } = useLanguage();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -164,23 +182,34 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
 
   const isBusy = disabled || isUploading;
 
+  useImperativeHandle(
+    ref,
+    () => ({
+      openFileDialog: () => {
+        if (isBusy) return;
+        fileInputRef.current?.click();
+      },
+    }),
+    [isBusy],
+  );
+
   return (
     <div>
       <div
-        className={`border border-dashed border-unfocused-border-color rounded-geist p-geist text-sm transition-colors duration-150 ease-in-out bg-background text-foreground ${
-          isBusy ? "opacity-70" : "hover:border-focused-border-color"
+        className={`rounded-[18px] border border-dashed p-geist text-sm transition-colors duration-150 ease-in-out bg-[#050b09] text-foreground border-[#1c5f47] ${
+          isBusy ? "opacity-60" : "hover:border-[#28fcb0]"
         }`}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
         <label className="cursor-pointer block" htmlFor="imageFile">
-          <div className="flex flex-col items-center gap-2 text-center">
+          <div className="flex flex-col items-center gap-3 text-center">
             <div className="text-2xl">📁</div>
-            <p>{statusMessage}</p>
-            {isUploading ? <div className="text-xs text-subtitle">{t.imageUploading}</div> : null}
-            {uploadError ? <div className="text-xs text-red-500">{uploadError}</div> : null}
+            <p className="tbpn-subheadline text-[#d7ffef] text-xs">{statusMessage}</p>
+            {isUploading ? <div className="text-xs text-[#6feab9]">{t.imageUploading}</div> : null}
+            {uploadError ? <div className="text-xs text-[#ff88d5]">{uploadError}</div> : null}
             {uploadedImageUrl ? (
-              <div className="text-xs text-green-600">{t.imageUploadSuccess}</div>
+              <div className="text-xs text-[#36ffc3]">{t.imageUploadSuccess}</div>
             ) : null}
           </div>
         </label>
@@ -196,16 +225,18 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
       </div>
       {localPreviewUrl ? (
         <div className="mt-3">
-          <img src={localPreviewUrl} alt="Preview" className="max-h-48 rounded-geist object-cover" />
+          <img src={localPreviewUrl} alt="Preview" className="max-h-48 rounded-[18px] object-cover border border-[#1d6f53]" />
         </div>
       ) : null}
       {!localPreviewUrl && uploadedImageUrl ? (
         <div className="mt-3">
-          <img src={uploadedImageUrl} alt="Uploaded preview" className="max-h-48 rounded-geist object-cover" />
+          <img src={uploadedImageUrl} alt="Uploaded preview" className="max-h-48 rounded-[18px] object-cover border border-[#1d6f53]" />
         </div>
       ) : null}
     </div>
   );
 };
+
+export const ImageUpload = forwardRef<ImageUploadHandle, ImageUploadProps>(ImageUploadInner);
 
 export default ImageUpload;

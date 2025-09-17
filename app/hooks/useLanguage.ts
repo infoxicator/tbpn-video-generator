@@ -11,13 +11,13 @@ type LanguageStrings = {
 };
 
 const defaultStrings: LanguageStrings = {
-  imageUploadLabel: "Profile image",
-  imageUploading: "Uploading image...",
-  imageSelected: "Selected",
-  imageUploadInstruction: "Drag and drop or click to choose an image",
-  imageUploadSuccess: "Image uploaded successfully",
-  errorFailedToUpload: "Failed to upload image",
-  imageUploadError: "Image upload failed",
+  imageUploadLabel: "GLAMOUR SHOT",
+  imageUploading: "POLISHING PIXELS...",
+  imageSelected: "LOCKED IN",
+  imageUploadInstruction: "DRAG A HEROIC HEADSHOT HERE OR CLICK TO BROWSE",
+  imageUploadSuccess: "GLAM SHOT LANDED",
+  errorFailedToUpload: "OUR UPLOAD GOBLINS TRIPPED—TRY AGAIN",
+  imageUploadError: "THE GLAMOUR SHOT REFUSED TO UPLOAD",
 };
 
 export function useLanguage() {
