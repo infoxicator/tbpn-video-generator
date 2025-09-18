@@ -158,17 +158,17 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
             style={{
               transform: `translateY(${textLift}px)`,
               background: "rgba(9, 74, 52, 0.92)",
-              borderRadius: 26,
-              padding: "38px 44px",
-              maxWidth: placement.maxWidth ?? "62%",
+              borderRadius: 36,
+              padding: "48px 54px",
+              maxWidth: placement.maxWidth ?? "65%",
               border: "1px solid rgba(255,255,255,0.2)",
-              boxShadow: "0 24px 48px rgba(0, 0, 0, 0.45)",
+              boxShadow: "0 30px 60px rgba(0, 0, 0, 0.45)",
             }}
           >
             <p
               style={{
-                fontSize: 40,
-                lineHeight: 1.3,
+                fontSize: 48,
+                lineHeight: 1.32,
                 margin: 0,
                 fontWeight: 600,
                 textAlign: placement.textAlign,

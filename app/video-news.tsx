@@ -82,6 +82,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
   const [pending, setPending] = useState(false);
   const [nameInput, setNameInput] = useState(loaderData.name ?? "");
   const [companyInput, setCompanyInput] = useState(loaderData.company ?? "");
+  const [promptInput, setPromptInput] = useState("");
 
   const [storyData, setStoryData] = useState<z.infer<typeof StoryResponse> | undefined>(
     loaderData.storyData ?? undefined
@@ -113,6 +114,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
     setProfileUrlInput(incomingPic ?? "");
     setCompanyInput(loaderData.company ?? "");
     setStoryData(loaderData.storyData ?? undefined);
+    setPromptInput("");
     setError(null);
     setUploadingImage(false);
     setPending(false);
@@ -156,6 +158,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
     setError(null);
     const trimmedName = nameInput.trim();
     const trimmedCompany = companyInput.trim();
+    const trimmedPrompt = promptInput.trim();
     if (!trimmedName || !trimmedCompany) {
       setError("We need a name and future employer to stir the rumor mill.");
       return;
@@ -186,6 +189,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
             name: trimmedName,
             profilePic: resolvedProfilePic,
             company: trimmedCompany,
+            ...(trimmedPrompt ? { prompt: trimmedPrompt } : {}),
           }),
         }
       );
@@ -246,6 +250,18 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
                   className="mt-3 bg-[#050b09] border-[#1c5f47] focus:border-[#28fcb0] text-[#e1fff5] placeholder:text-[#3f7f68]"
                 />
                 <p className="text-xs text-[#6fdab2] mt-3">Name the shiny new playground so we can hype their next chapter.</p>
+              </div>
+
+              <div>
+                <label className="tbpn-label">Add insider intel (optional)</label>
+                <Input
+                  disabled={pending}
+                  text={promptInput}
+                  setText={setPromptInput}
+                  placeholder="Optional details to add to this story i.e. insider information about the move"
+                  className="mt-3 bg-[#050b09] border-[#1c5f47] focus:border-[#28fcb0] text-[#e1fff5] placeholder:text-[#3f7f68]"
+                />
+                <p className="text-xs text-[#6fdab2] mt-3">Spill any extra tea that should make the reel juicier.</p>
               </div>
 
               <div>
