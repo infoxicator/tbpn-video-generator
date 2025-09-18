@@ -83,6 +83,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
   const [nameInput, setNameInput] = useState(loaderData.name ?? "");
   const [companyInput, setCompanyInput] = useState(loaderData.company ?? "");
   const [promptInput, setPromptInput] = useState("");
+  const [showNerdSection, setShowNerdSection] = useState(false);
 
   const [storyData, setStoryData] = useState<z.infer<typeof StoryResponse> | undefined>(
     loaderData.storyData ?? undefined
@@ -405,6 +406,40 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
         <Spacing />
         <Spacing />
         <Spacing />
+
+        <div className="tbpn-panel px-7 py-6 md:px-12 md:py-8 text-[#9ee9c9] flex flex-col items-center gap-4">
+          <button
+            type="button"
+            onClick={() => setShowNerdSection((prev) => !prev)}
+            className="tbpn-subheadline text-[11px] uppercase tracking-[0.3em] text-[#26ffb3] border border-[#1bd494] rounded-full px-4 py-2 transition-colors duration-200 hover:bg-[#073425]"
+            aria-expanded={showNerdSection}
+            aria-controls="nerd-notes"
+          >
+            {showNerdSection ? "Close the nerd notes" : "For nerds 🤓"}
+          </button>
+          {showNerdSection ? (
+            <div
+              id="nerd-notes"
+              className="w-full rounded-[18px] border border-[#124c38] bg-[#031a13] p-4 shadow-[0_0_35px_rgba(18,76,56,0.35)]"
+            >
+              <p className="text-xs leading-6 text-[#b5f9db]">
+                The rumor reel runs on Remotion, Nano Banana and Cloudflare Workers. We gather story beats via a Postman Flows and stitch the video together in the browser before shipping it off for rendering.
+              </p>
+              <div className="mt-3 aspect-video w-full overflow-hidden rounded-[12px] border border-[#0f3a28]">
+                <iframe
+                  src="https://www.youtube.com/embed/42B_ia64QZU?si=NCFqdI906xS_2Dsx"
+                  title="How this site was built"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="h-full w-full"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
   );
