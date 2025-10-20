@@ -8,6 +8,8 @@ import React, {
   useState,
 } from "react";
 import { useLanguage } from "../hooks/useLanguage";
+import { cn } from "~/lib/utils";
+import type { ImageUploadAppearance } from "~/features/news-generator/types";
 
 type ImageUploadProps = {
   onFileSelect: (file: File | null) => void;
@@ -16,6 +18,7 @@ type ImageUploadProps = {
   initialImageUrl?: string | null;
   onUploadingChange?: (isUploading: boolean) => void;
   disabled?: boolean;
+  appearance?: ImageUploadAppearance;
 };
 
 export type ImageUploadHandle = {
@@ -33,6 +36,7 @@ const ImageUploadInner: React.ForwardRefRenderFunction<
     initialImageUrl,
     onUploadingChange,
     disabled,
+    appearance,
   },
   ref,
 ) => {
@@ -42,6 +46,16 @@ const ImageUploadInner: React.ForwardRefRenderFunction<
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(initialImageUrl ?? null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [localPreviewUrl, setLocalPreviewUrl] = useState<string | null>(null);
+  const mergedAppearance: Required<ImageUploadAppearance> = {
+    dropzoneClassName: "bg-[#050b09] text-foreground border-[#1c5f47]",
+    dropzoneHoverClassName: "hover:border-[#28fcb0]",
+    statusTextClassName: "text-[#d7ffef]",
+    uploadingTextClassName: "text-[#6feab9]",
+    errorTextClassName: "text-[#ff88d5]",
+    successTextClassName: "text-[#36ffc3]",
+    previewBorderClassName: "border-[#1d6f53]",
+    ...(appearance ?? {}),
+  };
 
   // Keep the parent informed about upload state changes
   const updateUploadingState = useCallback(
@@ -196,20 +210,22 @@ const ImageUploadInner: React.ForwardRefRenderFunction<
   return (
     <div>
       <div
-        className={`rounded-[18px] border border-dashed p-geist text-sm transition-colors duration-150 ease-in-out bg-[#050b09] text-foreground border-[#1c5f47] ${
-          isBusy ? "opacity-60" : "hover:border-[#28fcb0]"
-        }`}
+        className={cn(
+          "rounded-[18px] border border-dashed p-geist text-sm transition-colors duration-150 ease-in-out",
+          mergedAppearance.dropzoneClassName,
+          isBusy ? "opacity-60" : mergedAppearance.dropzoneHoverClassName,
+        )}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
         <label className="cursor-pointer block" htmlFor="imageFile">
           <div className="flex flex-col items-center gap-3 text-center">
             <div className="text-2xl">📁</div>
-            <p className="tbpn-subheadline text-[#d7ffef] text-xs">{statusMessage}</p>
-            {isUploading ? <div className="text-xs text-[#6feab9]">{t.imageUploading}</div> : null}
-            {uploadError ? <div className="text-xs text-[#ff88d5]">{uploadError}</div> : null}
+            <p className={cn("tbpn-subheadline text-xs", mergedAppearance.statusTextClassName)}>{statusMessage}</p>
+            {isUploading ? <div className={cn("text-xs", mergedAppearance.uploadingTextClassName)}>{t.imageUploading}</div> : null}
+            {uploadError ? <div className={cn("text-xs", mergedAppearance.errorTextClassName)}>{uploadError}</div> : null}
             {uploadedImageUrl ? (
-              <div className="text-xs text-[#36ffc3]">{t.imageUploadSuccess}</div>
+              <div className={cn("text-xs", mergedAppearance.successTextClassName)}>{t.imageUploadSuccess}</div>
             ) : null}
           </div>
         </label>
@@ -225,12 +241,20 @@ const ImageUploadInner: React.ForwardRefRenderFunction<
       </div>
       {localPreviewUrl ? (
         <div className="mt-3">
-          <img src={localPreviewUrl} alt="Preview" className="max-h-48 rounded-[18px] object-cover border border-[#1d6f53]" />
+          <img
+            src={localPreviewUrl}
+            alt="Preview"
+            className={cn("max-h-48 rounded-[18px] object-cover border", mergedAppearance.previewBorderClassName)}
+          />
         </div>
       ) : null}
       {!localPreviewUrl && uploadedImageUrl ? (
         <div className="mt-3">
-          <img src={uploadedImageUrl} alt="Uploaded preview" className="max-h-48 rounded-[18px] object-cover border border-[#1d6f53]" />
+          <img
+            src={uploadedImageUrl}
+            alt="Uploaded preview"
+            className={cn("max-h-48 rounded-[18px] object-cover border", mergedAppearance.previewBorderClassName)}
+          />
         </div>
       ) : null}
     </div>
