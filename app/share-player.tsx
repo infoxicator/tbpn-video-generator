@@ -11,6 +11,8 @@ import "./app.css";
 import { z } from "zod";
 import { Main } from "./remotion/components/Main";
 import { StoryResponse } from "./remotion/schemata";
+import type { StoryData } from "./remotion/types";
+import { themes } from "~/features/news-generator/themes";
 import { Loading } from "./components/Loading";
 import { Spacing } from "./components/Spacing";
 
@@ -160,7 +162,12 @@ export default function SharedTbpnSegment({ loaderData }: { loaderData: LoaderDa
     );
   }
 
-  const inputProps: z.infer<typeof StoryResponse> = loaderData.storyData;
+  const rawStory = loaderData.storyData as (StoryData | undefined);
+  if (!rawStory) {
+    throw new Error("Missing story data for share view");
+  }
+
+  const inputProps: StoryData = rawStory.theme ? rawStory : { ...rawStory, theme: themes.emerald.video };
 
   return (
     <div className="bg-[#05060d] tbpn-body min-h-screen text-[#f4f6ff] pb-16">

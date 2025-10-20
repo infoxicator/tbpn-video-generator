@@ -5,21 +5,22 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import type { VideoThemeSettings } from "../types";
 
 interface ImageTextSlideProps {
   image?: string;
   text?: string;
   slideIndex: number;
   totalSlides: number;
+  theme: VideoThemeSettings;
 }
-
-const accentColor = "#19c48a";
 
 export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
   image,
   text,
   slideIndex,
   totalSlides,
+  theme,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -85,10 +86,10 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#05291f",
+        backgroundColor: theme.background,
         overflow: "hidden",
         position: "relative",
-        color: "#ffffff",
+        color: theme.textColor,
         fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
       }}
     >
@@ -116,7 +117,7 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
             style={{
               width: "100%",
               height: "100%",
-              backgroundColor: "#0d3a2b",
+              backgroundColor: theme.fallbackImageBackground,
             }}
           />
         )}
@@ -125,16 +126,14 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
       {/* Overlay tint */}
       <AbsoluteFill
         style={{
-          background:
-            "linear-gradient(135deg, rgba(5, 56, 38, 0.7), rgba(4, 31, 23, 0.9))",
+          background: theme.imageOverlayGradient,
         }}
       />
 
       {/* Texture */}
       <AbsoluteFill
         style={{
-          backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.14) 1px, transparent 1px)",
+          backgroundImage: `radial-gradient(${theme.textureDotColor} 1px, transparent 1px)`,
           backgroundSize: "40px 40px",
           opacity: 0.25,
           pointerEvents: "none",
@@ -157,12 +156,12 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
           <div
             style={{
               transform: `translateY(${textLift}px)`,
-              background: "rgba(9, 74, 52, 0.92)",
+              background: theme.textPanelBackground,
               borderRadius: 36,
               padding: "48px 54px",
               maxWidth: placement.maxWidth ?? "65%",
-              border: "1px solid rgba(255,255,255,0.2)",
-              boxShadow: "0 30px 60px rgba(0, 0, 0, 0.45)",
+              border: `1px solid ${theme.textPanelBorderColor}`,
+              boxShadow: theme.textPanelShadow,
             }}
           >
             <p
@@ -172,6 +171,7 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
                 margin: 0,
                 fontWeight: 600,
                 textAlign: placement.textAlign,
+                color: theme.textColor,
               }}
             >
               {text}
@@ -203,12 +203,12 @@ export const ImageTextSlide: React.FC<ImageTextSlideProps> = ({
                 height: 6,
                 backgroundColor:
                   index === slideIndex
-                    ? accentColor
-                    : "rgba(255, 255, 255, 0.3)",
+                    ? theme.indicatorActive
+                    : theme.indicatorInactive,
                 borderRadius: 12,
                 boxShadow:
                   index === slideIndex
-                    ? "0 0 18px rgba(25, 196, 138, 0.6)"
+                    ? `0 0 18px ${theme.indicatorGlow}`
                     : undefined,
               }}
             />

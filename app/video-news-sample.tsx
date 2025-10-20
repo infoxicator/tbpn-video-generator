@@ -12,9 +12,11 @@ import { Main } from "./remotion/components/Main";
 import { RenderControls } from "./components/RenderControls";
 import { Spacing } from "./components/Spacing";
 import { StoryResponse } from "./remotion/schemata";
+import type { StoryData } from "./remotion/types";
 import { useMcpUiInit } from "./utils/mcp";
 import sampleResponse from "./remotion/components/Sample/response.json";
 import { Loading } from "./components/Loading";
+import { themes } from "~/features/news-generator/themes";
 
 export async function clientLoader() {
   return sampleResponse;
@@ -46,8 +48,8 @@ export default function Index({ loaderData }: { loaderData: z.infer<typeof Story
   const storyData = loaderData;
   useMcpUiInit();
 
-  const inputProps: z.infer<typeof StoryResponse> = useMemo(() => {
-    return storyData;
+  const inputProps: StoryData = useMemo(() => {
+    return { ...storyData, theme: themes.emerald.video };
   }, [storyData]);
 
   return (

@@ -4,6 +4,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
+import type { VideoThemeSettings } from "../types";
 
 // Simple arrow down component matching original
 const ArrowDown = ({ fill = 'black' }) => (
@@ -48,9 +49,9 @@ const ArrowDown = ({ fill = 'black' }) => (
 interface EndSlideProps {
   callToAction: string;
   title?: string;
+  theme: VideoThemeSettings;
 }
-
-export const EndSlide: React.FC<EndSlideProps> = ({ callToAction }) => {
+export const EndSlide: React.FC<EndSlideProps> = ({ callToAction, theme }) => {
   const frame = useCurrentFrame();
   const videoConfig = useVideoConfig();
   
@@ -73,9 +74,9 @@ export const EndSlide: React.FC<EndSlideProps> = ({ callToAction }) => {
       style={{
         height: '100%',
         width: '100%',
-        background: 'linear-gradient(180deg, #0b5a3d 0%, #043226 100%)',
+        background: theme.end.background,
         padding: `60px 90px 150px 90px`,
-        color: '#ffffff',
+        color: theme.end.textColor,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -95,19 +96,19 @@ export const EndSlide: React.FC<EndSlideProps> = ({ callToAction }) => {
             letterSpacing: 8,
             fontSize: 22,
             textTransform: 'uppercase',
-            color: 'rgba(255,255,255,0.7)',
-          }}
-        >
-          https://tbpn-video.vercel.app
-        </span>
-        <div
-          style={{
-            height: 4,
-            width: 120,
-            backgroundColor: '#19c48a',
-            borderRadius: 999,
-          }}
-        />
+          color: theme.end.subtitleColor,
+        }}
+      >
+        https://tbpn-video.vercel.app
+      </span>
+      <div
+        style={{
+          height: 4,
+          width: 120,
+          backgroundColor: theme.end.accent,
+          borderRadius: 999,
+        }}
+      />
       </div>
       
       {/* Animated call to action text */}
@@ -148,7 +149,7 @@ export const EndSlide: React.FC<EndSlideProps> = ({ callToAction }) => {
       
       {/* Animated arrow down */}
       <span style={{ transform: `scale(${scaleIn})` }}>
-        <ArrowDown fill="#19c48a" />
+        <ArrowDown fill={theme.end.accent} />
       </span>
     </AbsoluteFill>
   );

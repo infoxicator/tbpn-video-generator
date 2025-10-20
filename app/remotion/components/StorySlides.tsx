@@ -2,14 +2,43 @@ import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
 import { ImageTextSlide } from "./ImageTextSlide";
 import { TitleSlide } from "./TitleSlide";
 import { EndSlide } from "./EndSlide";
-import { StoryData } from "../types";
+import { StoryData, VideoThemeSettings } from "../types";
 
 interface StorySlidesProps {
   storyData: StoryData;
 }
 
+const defaultVideoTheme: VideoThemeSettings = {
+  background: "#031f16",
+  fallbackImageBackground: "#0d3a2b",
+  imageOverlayGradient: "linear-gradient(135deg, rgba(5, 56, 38, 0.7), rgba(4, 31, 23, 0.9))",
+  textureDotColor: "rgba(255,255,255,0.14)",
+  textPanelBackground: "rgba(9, 74, 52, 0.92)",
+  textPanelBorderColor: "rgba(255,255,255,0.2)",
+  textPanelShadow: "0 30px 60px rgba(0, 0, 0, 0.45)",
+  textColor: "#ffffff",
+  indicatorActive: "#19c48a",
+  indicatorGlow: "rgba(25, 196, 138, 0.6)",
+  indicatorInactive: "rgba(255,255,255,0.3)",
+  title: {
+    fallbackGradient: "linear-gradient(180deg, #0b5a3d 0%, #043226 100%)",
+    overlayGradient: "linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.7))",
+    containerBackground: "linear-gradient(90deg, rgba(0,0,0,0.65), rgba(0,0,0,0.2))",
+    badgeBackground: "rgba(25, 196, 138, 0.18)",
+    badgeBorder: "rgba(255,255,255,0.35)",
+    badgeTextColor: "#ffffff",
+  },
+  end: {
+    background: "linear-gradient(180deg, #0b5a3d 0%, #043226 100%)",
+    accent: "#19c48a",
+    subtitleColor: "rgba(255,255,255,0.7)",
+    textColor: "#ffffff",
+  },
+};
+
 export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
   const { durationInFrames, fps } = useVideoConfig();
+  const theme = storyData.theme ?? defaultVideoTheme;
 
   const slides = storyData.slides ?? [];
   const mainImage = storyData.mainImage ?? slides[0]?.image;
@@ -31,13 +60,15 @@ export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#031f16",
+        background: theme.background,
+        color: theme.textColor,
       }}
     >
       <Sequence durationInFrames={titleDuration}>
         <TitleSlide
           title={storyData.title}
           image={mainImage}
+          theme={theme}
         />
       </Sequence>
 
@@ -57,6 +88,7 @@ export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
               text={slide?.text}
               slideIndex={index}
               totalSlides={detailCount || 1}
+              theme={theme}
             />
           </Sequence>
         );
@@ -66,6 +98,7 @@ export const StorySlides: React.FC<StorySlidesProps> = ({ storyData }) => {
         <EndSlide
           callToAction={"Create your own and share!"}
           title="Thanks for watching!"
+          theme={theme}
         />
       </Sequence>
     </AbsoluteFill>

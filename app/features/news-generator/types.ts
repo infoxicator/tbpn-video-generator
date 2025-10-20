@@ -1,5 +1,6 @@
 import type { z } from "zod";
 import type { StoryResponse } from "~/remotion/schemata";
+import type { VideoThemeSettings } from "~/remotion/types";
 
 export type GeneratorLoaderData = {
   profilePic?: string | null;
@@ -58,6 +59,7 @@ export type NewsGeneratorTheme = {
   placeholderSpinnerColor: string;
   renderControlsAppearance: RenderControlsAppearance;
   imageUploadAppearance: ImageUploadAppearance;
+  video: VideoThemeSettings;
   story: {
     mainInstructions: string;
     templatePic: string;

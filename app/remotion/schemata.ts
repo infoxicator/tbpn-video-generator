@@ -32,16 +32,18 @@ export type ProgressResponse =
       size: number;
     };
 
-export const StoryResponse = z.object({
-  title: z.string(),
-  date: z.string().datetime(),
-  mainImage: z.string().url().optional(),
-  slides: z
-    .array(
+export const StoryResponse = z
+  .object({
+    title: z.string(),
+    date: z.string().datetime(),
+    mainImage: z.string().url().optional(),
+    slides: z
+      .array(
       z.object({
         image: z.string().url(),
         text: z.string().max(500),
       })
     )
-    .min(1),
-});
+      .min(1),
+  })
+  .passthrough();

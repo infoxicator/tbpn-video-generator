@@ -1,9 +1,9 @@
 import { Player } from "@remotion/player";
-import { z } from "zod";
 import { Link } from "react-router-dom";
 import { Main } from "~/remotion/components/Main";
 import sampleResponse from "~/remotion/components/Sample/response.json";
 import { StoryResponse } from "~/remotion/schemata";
+import type { StoryData } from "~/remotion/types";
 import {
   DURATION_IN_FRAMES,
   COMPOSITION_FPS,
@@ -22,10 +22,10 @@ type MenuItem = {
 
 const MENU_ITEMS: MenuItem[] = [
   {
-    path: "/traded",
-    title: "Trade Desk",
-    description: "Spin up the TBPN trade breakdown with custom beats and assets.",
-    themeKey: "emerald",
+    path: "/funding-news",
+    title: "Funding News",
+    description: "Break the latest raise with founder, round, and lead investor callouts.",
+    themeKey: "funding",
   },
   {
     path: "/beef-update",
@@ -46,21 +46,21 @@ const MENU_ITEMS: MenuItem[] = [
     themeKey: "signed",
   },
   {
-    path: "/funding-news",
-    title: "Funding News",
-    description: "Break the latest raise with founder, round, and lead investor callouts.",
-    themeKey: "funding",
+    path: "/traded",
+    title: "Trade Desk",
+    description: "Spin up the TBPN trade breakdown with custom beats and assets.",
+    themeKey: "emerald",
   },
   {
     path: "/new-profile-pic",
-    title: "Profile Drop",
+    title: "Profile Pic Drop",
     description: "Reveal a refreshed headshot with the spotlight-style profile package.",
     themeKey: "profile",
   },
 ];
 
 export default function IndexRoute() {
-  const previewData = sampleResponse as z.infer<typeof StoryResponse>;
+  const previewData = sampleResponse as StoryData;
 
   return (
     <div className="bg-[#05060d] min-h-screen text-white pb-20">
@@ -74,8 +74,7 @@ export default function IndexRoute() {
           <p className="tbpn-chip inline-flex">TBPN Generator Hub</p>
           <h1 className="tbpn-headline text-4xl md:text-5xl text-white">Pick a newsroom template</h1>
           <p className="text-[#c1fbe3] max-w-3xl mx-auto md:mx-0">
-            Choose a storyline type to auto-populate the generator with the right look and feel. Every
-            template keeps the controls you know—just themed for the moment.
+            Choose a storyline type to auto-populate the video generator with the right look and feel.
           </p>
         </header>
 
@@ -88,9 +87,9 @@ export default function IndexRoute() {
                 to={path}
                 className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-[#7afbd0] focus-visible:ring-offset-[#05060d] rounded-[32px]"
               >
-                <article
-                  className={`${theme.panelClassName} transition-transform duration-300 rounded-[32px] px-7 py-8 flex flex-col gap-6 h-full border border-transparent group-hover:border-white/20 group-hover:-translate-y-1`}
-                >
+            <article
+              className={`${theme.panelClassName} transition-transform duration-300 rounded-[32px] px-7 py-8 flex flex-col gap-6 h-full border border-transparent group-hover:border-white/20 group-hover:-translate-y-1`}
+            >
                   <div className="space-y-2">
                     <h2 className="tbpn-headline text-2xl text-white">{title}</h2>
                     <p className="text-sm leading-relaxed text-[#d7defc]">{description}</p>
@@ -101,7 +100,7 @@ export default function IndexRoute() {
                   >
                     <Player
                       component={Main}
-                      inputProps={previewData}
+                      inputProps={{ ...previewData, theme: theme.video }}
                       durationInFrames={DURATION_IN_FRAMES}
                       fps={COMPOSITION_FPS}
                       compositionHeight={COMPOSITION_HEIGHT}

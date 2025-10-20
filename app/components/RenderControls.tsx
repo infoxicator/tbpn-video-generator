@@ -1,16 +1,15 @@
-import { z } from "zod";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ErrorComp } from "./Error";
 import { Spinner } from "./Spinner";
-import { StoryResponse } from "~/remotion/schemata";
 import { cn } from "~/lib/utils";
 import type { RenderControlsAppearance } from "~/features/news-generator/types";
+import type { StoryData } from "~/remotion/types";
 
 type ShareState = "idle" | "submitting" | "error";
 
 export const RenderControls: React.FC<{
-  inputProps: z.infer<typeof StoryResponse>;
+  inputProps: StoryData;
   appearance?: RenderControlsAppearance;
 }> = ({ inputProps, appearance }) => {
   const navigate = useNavigate();

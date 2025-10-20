@@ -19,7 +19,7 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Produce TBPN-style segments instantly. Upload a headshot, set the destination, and download a broadcast-ready video.",
+        "Produce TBPN-style videos instantly. Upload a headshot and download a broadcast-ready video.",
     },
   ];
 };

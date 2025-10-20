@@ -17,6 +17,7 @@ import {
   DURATION_IN_FRAMES,
 } from "~/remotion/constants.mjs";
 import type { GeneratorLoaderData, NewsGeneratorTheme } from "./types";
+import type { VideoThemeSettings } from "~/remotion/types";
 import { cn } from "~/lib/utils";
 
 export const createHydrateFallback = (theme: NewsGeneratorTheme) => {
@@ -41,7 +42,9 @@ export const createHydrateFallback = (theme: NewsGeneratorTheme) => {
   return HydrateFallback;
 };
 
-export const useGeneratorInputProps = (storyData: z.infer<typeof StoryResponse> | undefined) => {
+type HydratedStoryData = (z.infer<typeof StoryResponse> & { theme: VideoThemeSettings }) | undefined;
+
+export const useGeneratorInputProps = (storyData: HydratedStoryData) => {
   return useMemo(() => storyData, [storyData]);
 };
 
@@ -57,8 +60,8 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
   const [promptInput, setPromptInput] = useState("");
   const [showNerdSection, setShowNerdSection] = useState(false);
 
-  const [storyData, setStoryData] = useState<z.infer<typeof StoryResponse> | undefined>(
-    loaderData.storyData ?? undefined,
+  const [storyData, setStoryData] = useState<HydratedStoryData>(
+    loaderData.storyData ? { ...loaderData.storyData, theme: theme.video } : undefined,
   );
   const [selectedProfileFile, setSelectedProfileFile] = useState<File | null>(null);
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(loaderData.profilePic ?? null);
@@ -83,7 +86,7 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
     setProfileImageUrl(nextMode === "upload" ? incomingPic : null);
     setProfileUrlInput(incomingPic ?? "");
     setCompanyInput(loaderData.company ?? "");
-    setStoryData(loaderData.storyData ?? undefined);
+    setStoryData(loaderData.storyData ? { ...loaderData.storyData, theme: theme.video } : undefined);
     setPromptInput("");
     setError(null);
     setUploadingImage(false);
@@ -172,7 +175,7 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
 
       const parsed = StoryResponse.safeParse(initial);
       if (!parsed.success) throw parsed.error;
-      setStoryData(parsed.data);
+      setStoryData({ ...parsed.data, theme: theme.video });
     } catch (err) {
       const errMessage = err instanceof Error ? err.message : "Failed to load story";
       setError(`${theme.copy.errorPrefix}: ${errMessage}`);
