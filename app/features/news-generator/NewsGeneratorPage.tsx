@@ -157,6 +157,8 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
           name: trimmedName,
           profilePic: resolvedProfilePic,
           company: trimmedCompany,
+          mainInstructions: theme.story.mainInstructions,
+          templatePic: theme.story.templatePic,
           ...(trimmedPrompt ? { prompt: trimmedPrompt } : {}),
         }),
       });

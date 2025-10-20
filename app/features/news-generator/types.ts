@@ -58,6 +58,10 @@ export type NewsGeneratorTheme = {
   placeholderSpinnerColor: string;
   renderControlsAppearance: RenderControlsAppearance;
   imageUploadAppearance: ImageUploadAppearance;
+  story: {
+    mainInstructions: string;
+    templatePic: string;
+  };
   copy: {
     heroChip: string;
     heroTitle: string;

@@ -44,6 +44,11 @@ export const emeraldTheme: NewsGeneratorTheme = {
     successTextClassName: "text-[#36ffc3]",
     previewBorderClassName: "border-[#1d6f53]",
   },
+  story: {
+    mainInstructions:
+      "Produce a high-energy trade desk segment about profile_name heading to company. Make it feel like late-night sports banter with playful speculation and quick chyron-ready bullet points. Keep each slide under 400 characters.",
+    templatePic: "https://images.iwasthere.today/1758059948590-30d05235-518e-472f-b5dd-09cdeec0108d.png",
+  },
   copy: {
     heroChip: "TBPN Intake",
     heroTitle: "Let's script their grand exit",
@@ -126,6 +131,11 @@ export const breakingTheme: NewsGeneratorTheme = {
     errorTextClassName: "text-[#ff6b6b]",
     successTextClassName: "text-[#ffbaba]",
     previewBorderClassName: "border-[#5c1d1d]",
+  },
+  story: {
+    mainInstructions:
+      "Write a fiery TBPN rivalry update about profile_name making waves at company. Channel dramatic newsroom gossip with tongue-in-cheek Succession-style humor, building to a hype outro. Cap each slide at 400 characters.",
+    templatePic: "https://images.iwasthere.today/tbpn-beef-settled.png",
   },
   copy: {
     heroChip: "Breaking Desk",
@@ -210,6 +220,11 @@ export const cobaltTheme: NewsGeneratorTheme = {
     errorTextClassName: "text-[#ff9bff]",
     successTextClassName: "text-[#bdb8ff]",
     previewBorderClassName: "border-[#2f3275]",
+  },
+  story: {
+    mainInstructions:
+      "Craft a neon-soaked personnel alert about profile_name being poached to company. Lean into slick corporate intrigue with confident presenter voice and concise 350-character slides.",
+    templatePic: "https://images.iwasthere.today/tbpn-poached.png",
   },
   copy: {
     heroChip: "Personnel News",
@@ -296,6 +311,11 @@ export const signedTheme: NewsGeneratorTheme = {
     successTextClassName: "text-[#c8c6ff]",
     previewBorderClassName: "border-[#353b96]",
   },
+  story: {
+    mainInstructions:
+      "Report a headline-grabbing signing about profile_name joining company. Match primetime sports coverage energy, highlight contract flavor, and keep slides punchy under 360 characters.",
+    templatePic: "https://images.iwasthere.today/tbpn-signed.png",
+  },
   copy: {
     heroChip: "Breaking News",
     heroTitle: "Announce the latest signing",
@@ -380,6 +400,11 @@ export const fundingTheme: NewsGeneratorTheme = {
     successTextClassName: "text-[#36ffc3]",
     previewBorderClassName: "border-[#1d6f53]",
   },
+  story: {
+    mainInstructions:
+      "Announce a funding round with profile_name and company, spotlighting lead investors and why the raise matters. Embrace upbeat business cable energy with crisp 360-character slides.",
+    templatePic: "https://images.iwasthere.today/tbpn-funding-news.png",
+  },
   copy: {
     heroChip: "Funding News",
     heroTitle: "Prep the headline for this raise",
@@ -463,6 +488,11 @@ export const profileTheme: NewsGeneratorTheme = {
     errorTextClassName: "text-[#ff6b6b]",
     successTextClassName: "text-[#ffbaba]",
     previewBorderClassName: "border-[#5c1d1d]",
+  },
+  story: {
+    mainInstructions:
+      "Deliver a glam newsroom hit about profile_name debuting a new company profile picture. Celebrate the glow-up with playful fashion-desk commentary, keeping each slide under 340 characters.",
+    templatePic: "https://images.iwasthere.today/tbpn-new-profile-pic.png",
   },
   copy: {
     heroChip: "Breaking News",
