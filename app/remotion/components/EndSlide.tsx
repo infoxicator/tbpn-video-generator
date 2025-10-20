@@ -98,7 +98,7 @@ export const EndSlide: React.FC<EndSlideProps> = ({ callToAction }) => {
             color: 'rgba(255,255,255,0.7)',
           }}
         >
-          https://rumor-reel.vercel.app
+          https://tbpn-video.vercel.app
         </span>
         <div
           style={{

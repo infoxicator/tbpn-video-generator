@@ -139,7 +139,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
     const trimmedName = nameInput.trim();
     const trimmedCompany = companyInput.trim();
     if (!trimmedName || !trimmedCompany) {
-      setError("We need a name and future employer to stir the rumor mill.");
+      setError("We need a name and future employer to cue the TBPN news desk.");
       return;
     }
     if (uploadingImage) {
@@ -298,7 +298,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
                 disabled={pending || uploadingImage}
                 className="tbpn-headline tracking-[0.22em] text-sm h-12 px-8 bg-[#00b06f] text-black border-0 hover:bg-[#00dd8b] disabled:bg-[#0f3a28] disabled:text-[#76cbaa]"
               >
-                Spin the rumor reel
+                Render the TBPN segment
               </Button>
             </div>
           </div>
@@ -314,7 +314,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
                 <Loading
                   compact
                   title="Rendering video…"
-                  subtitle="🤖 *beep boop* rumor mill spinning up"
+                  subtitle="🤖 *beep boop* TBPN news desk checking the wires"
                 />
               </div>
             </div>

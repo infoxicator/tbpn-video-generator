@@ -44,7 +44,7 @@ export async function clientLoader({ params, request }: { params: { shareId?: st
   try {
     const res = await fetch(`https://imageplustexttoimage.mcp-ui-flows-nanobanana.workers.dev/api/payloads/${shareId}`);
     if (!res.ok) {
-      const message = res.status === 404 ? "We couldn't find that rumor reel." : "Unable to load shared story.";
+      const message = res.status === 404 ? "We couldn't find that TBPN segment." : "Unable to load shared story.";
       return {
         status: "error",
         message,
@@ -79,7 +79,7 @@ export async function clientLoader({ params, request }: { params: { shareId?: st
     console.error("Failed to load shared story", error);
     return {
       status: "error",
-      message: "Something glitched while loading this reel.",
+      message: "Something glitched while loading this segment.",
       shareUrl: `${currentUrl.origin}/share/${shareId}`,
     } satisfies LoaderData;
   }
@@ -96,7 +96,7 @@ export function HydrateFallback() {
             <div className="relative flex h-full w-full items-center justify-center">
               <Loading
                 compact
-                title="Loading shared rumor reel…"
+                title="Loading shared TBPN segment…"
                 subtitle="Cue the ticker tape"
               />
             </div>
@@ -109,7 +109,7 @@ export function HydrateFallback() {
 
 const ShareToTwitterButton: FC<{ shareUrl: string }> = ({ shareUrl }) => {
   const handleClick = () => {
-    const tweetText = "Rumor reel just dropped from the MCP-UI newsroom.";
+    const tweetText = "TBPN segment just dropped from the MCP-UI newsroom.";
     const intentUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(tweetText)}`;
     window.open(intentUrl, "_blank", "noopener,noreferrer");
   };
@@ -143,7 +143,7 @@ const CreateYourOwnButton: FC = () => {
   );
 };
 
-export default function SharedRumorReel({ loaderData }: { loaderData: LoaderData }) {
+export default function SharedTbpnSegment({ loaderData }: { loaderData: LoaderData }) {
   if (loaderData.status === "error") {
     return (
       <div className="bg-[#05060d] tbpn-body min-h-screen text-[#f4f6ff] pb-16">
@@ -152,7 +152,7 @@ export default function SharedRumorReel({ loaderData }: { loaderData: LoaderData
             <CreateYourOwnButton />
           </div>
           <div className="mx-auto max-w-md rounded-[28px] border border-[#ff88d5] bg-[#2b0a25] px-6 py-8 shadow-[0_0_45px_rgba(255,119,200,0.35)]">
-            <h1 className="tbpn-headline text-2xl text-white">Rumor reel missing</h1>
+            <h1 className="tbpn-headline text-2xl text-white">TBPN segment missing</h1>
             <p className="mt-4 text-sm text-[#ffd8f1]">{loaderData.message}</p>
           </div>
         </div>

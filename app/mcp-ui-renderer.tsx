@@ -41,7 +41,7 @@ export function HydrateFallback() {
               <Loading
                 compact
                 title="Rendering video…"
-                subtitle="🤖 *beep boop* rumor mill spinning up"
+                subtitle="🤖 *beep boop* TBPN news desk checking the wires"
               />
             </div>
           </div>

@@ -74,7 +74,7 @@ export const RenderControls: React.FC<{
         ) : (
           <div className="relative flex items-center gap-3 text-[#dfffee]">
             <span className="h-2.5 w-2.5 rounded-full bg-[#27ffc0] shadow-[0_0_12px_rgba(39,255,192,0.8)]" />
-            <span className="tbpn-subheadline text-xs tracking-[0.32em] uppercase">Share this rumor reel</span>
+            <span className="tbpn-subheadline text-xs tracking-[0.32em] uppercase">Share this TBPN segment</span>
           </div>
         )}
       </button>

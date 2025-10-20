@@ -11,15 +11,15 @@ import {
 export const meta: MetaFunction = () => {
   return [
     {
-      title: "TBPN Rumor Reel Generator",
+      title: "TBPN Video Generator",
     },
     { charset: "utf-8" },
     { name: "viewport", content: "width=device-width,initial-scale=1" },
-    { property: "og:title", content: "TBPN Rumor Reel Generator" },
+    { property: "og:title", content: "TBPN Video Generator" },
     {
       name: "description",
       content:
-        "Spin up TBPN-style rumor reels instantly. Upload a headshot, set the destination, and download the broadcast-ready video.",
+        "Produce TBPN-style segments instantly. Upload a headshot, set the destination, and download a broadcast-ready video.",
     },
   ];
 };

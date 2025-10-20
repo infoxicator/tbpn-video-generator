@@ -161,7 +161,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
     const trimmedCompany = companyInput.trim();
     const trimmedPrompt = promptInput.trim();
     if (!trimmedName || !trimmedCompany) {
-      setError("We need a name and future employer to stir the rumor mill.");
+      setError("We need a name and future employer to cue the TBPN news desk.");
       return;
     }
     if (uploadingImage) {
@@ -221,7 +221,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
         <form onSubmit={handleSubmit}>
           <div className="tbpn-panel px-7 py-9 md:px-12 md:py-12 flex flex-col gap-7 text-[#e1fff5]">
             <div>
-              <p className="tbpn-chip">Rumor Intake</p>
+              <p className="tbpn-chip">TBPN Intake</p>
               <h2 className="tbpn-headline text-4xl md:text-5xl text-white mt-4">Let's script their grand exit</h2>
               <p className="text-sm md:text-base text-[#b5f9db] mt-4 max-w-2xl">
                 Spill the details—who's peacing out, where they’re landing, and which promo pic belongs on the farewell ticker.
@@ -262,7 +262,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
                   placeholder="Optional details to add to this story i.e. insider information about the move"
                   className="mt-3 bg-[#050b09] border-[#1c5f47] focus:border-[#28fcb0] text-[#e1fff5] placeholder:text-[#3f7f68]"
                 />
-                <p className="text-xs text-[#6fdab2] mt-3">Spill any extra tea that should make the reel juicier.</p>
+                <p className="text-xs text-[#6fdab2] mt-3">Spill any extra tea that should make the segment juicier.</p>
               </div>
 
               <div>
@@ -349,7 +349,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
                 disabled={pending || uploadingImage}
                 className="tbpn-headline tracking-[0.22em] text-sm h-12 px-8 bg-[#00b06f] text-black border-0 hover:bg-[#00dd8b] disabled:bg-[#0f3a28] disabled:text-[#76cbaa]"
               >
-                Spin the rumor reel
+                Render the TBPN segment
               </Button>
             </div>
           </div>
@@ -365,7 +365,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
                 <Loading
                   compact
                   title="Rendering video…"
-                  subtitle="🤖 *beep boop* rumor mill spinning up"
+                  subtitle="🤖 *beep boop* TBPN news desk checking the wires"
                 />
               </div>
             </div>
@@ -391,9 +391,9 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
           {!pending && !inputProps ? (
             <div className="relative overflow-hidden rounded-[28px] border border-dashed border-[#1c5f47] bg-[#03120d] mb-12 mt-8 aspect-[9/16] flex items-center justify-center text-center px-6">
               <div>
-                <p className="tbpn-headline text-xl text-white">No reel yet</p>
+                <p className="tbpn-headline text-xl text-white">No segment yet</p>
                 <p className="mt-3 text-sm text-[#6fdab2]">
-                  Fill in the rumor form and smash “Spin the rumor reel” to generate a preview.
+                  Fill in the TBPN rundown and hit \"Render the TBPN segment\" to generate a preview.
                 </p>
               </div>
             </div>
@@ -423,7 +423,7 @@ export default function Blog({ loaderData }: { loaderData: BlogLoaderData }) {
               className="w-full rounded-[18px] border border-[#124c38] bg-[#031a13] p-4 shadow-[0_0_35px_rgba(18,76,56,0.35)]"
             >
               <p className="text-xs leading-6 text-[#b5f9db]">
-                The rumor reel runs on Remotion, Nano Banana and Cloudflare Workers. We gather story beats via a Postman Flows and stitch the video together in the browser before shipping it off for rendering.
+                This TBPN generator runs on Remotion, Nano Banana and Cloudflare Workers. We gather story beats via a Postman Flow and stitch the video together in the browser before shipping it off for rendering.
               </p>
               <div className="mt-3 aspect-video w-full overflow-hidden rounded-[12px] border border-[#0f3a28]">
                 <iframe
