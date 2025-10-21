@@ -78,6 +78,9 @@ export type NewsGeneratorTheme = {
     glamourHelper: string;
     glamourPublicHelper: string;
     glamourUrlPlaceholder: string;
+    namePlaceholder: string;
+    companyPlaceholder: string;
+    promptPlaceholder: string;
     errorPrefix: string;
     emptyStateTitle: string;
     emptyStateDescription: string;

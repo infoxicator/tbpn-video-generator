@@ -129,6 +129,11 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
+    if (playerContainerRef.current) {
+      playerContainerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     const trimmedName = nameInput.trim();
     const trimmedCompany = companyInput.trim();
     const trimmedPrompt = promptInput.trim();
@@ -251,10 +256,9 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
                   disabled={pending}
                   text={nameInput}
                   setText={setNameInput}
-                  placeholder="e.g. Casey the Code Whisperer"
+                  placeholder={theme.copy.namePlaceholder}
                   className={cn("mt-3", theme.inputClassName)}
                 />
-                <p className={cn("text-xs mt-3", theme.helperTextClassName)}>{theme.copy.nameHelper}</p>
               </div>
 
               <div>
@@ -263,10 +267,9 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
                   disabled={pending}
                   text={companyInput}
                   setText={setCompanyInput}
-                  placeholder="Where are they defecting to?"
+                  placeholder={theme.copy.companyPlaceholder}
                   className={cn("mt-3", theme.inputClassName)}
                 />
-                <p className={cn("text-xs mt-3", theme.helperTextClassName)}>{theme.copy.companyHelper}</p>
               </div>
 
               <div>
@@ -275,10 +278,9 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
                   disabled={pending}
                   text={promptInput}
                   setText={setPromptInput}
-                  placeholder="Optional details to add to this story i.e. insider information about the move"
+                  placeholder={theme.copy.promptPlaceholder}
                   className={cn("mt-3", theme.inputClassName)}
                 />
-                <p className={cn("text-xs mt-3", theme.helperTextClassName)}>{theme.copy.promptHelper}</p>
               </div>
 
               <div>

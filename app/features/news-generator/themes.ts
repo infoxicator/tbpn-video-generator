@@ -91,6 +91,9 @@ export const emeraldTheme: NewsGeneratorTheme = {
     glamourHelper: "Upload a file or toss in a URL—whichever makes their farewell look legendary.",
     glamourPublicHelper: "Make sure the link is public so our gossip bots can fetch it.",
     glamourUrlPlaceholder: "https://example.com/their-glow-up.png",
+    namePlaceholder: "e.g. Casey the Code Whisperer",
+    companyPlaceholder: "Where are they defecting to?",
+    promptPlaceholder: "Optional details to add to this story i.e. insider information about the move",
     errorPrefix: "Our gossip hotline glitched",
     emptyStateTitle: "No segment yet",
     emptyStateDescription: 'Fill in the TBPN rundown and hit "Render the TBPN segment" to generate a preview.',
@@ -188,7 +191,7 @@ export const breakingTheme: NewsGeneratorTheme = {
   },
   story: {
     mainInstructions:
-      "Write a fiery TBPN rivalry update about profile_name making waves at company. Channel dramatic newsroom gossip with tongue-in-cheek Succession-style humor, building to a hype outro. Cap each slide at 400 characters.",
+      "Generate a funny breaking news story about the person in profile_name finally settling their long-standing beef with company. Use sharp, satirical humor in the style of HBO shows like Silicon Valley, Succession, or Black Mirror—but don’t mention them directly. Keep the text on each slide under 500 characters.",
     templatePic: "https://images.iwasthere.today/tbpn-beef-settled.png",
   },
   copy: {
@@ -198,7 +201,7 @@ export const breakingTheme: NewsGeneratorTheme = {
       "Drop the key facts so TBPN can announce the ceasefire. Names, new digs, and their triumphant press photo—we’ll package it for air.",
     nameLabel: "Main player",
     nameHelper: "Who’s in the spotlight? We’ll plaster their name across the lower-third.",
-    companyLabel: "Where are they heading?",
+    companyLabel: "No longer beefing with",
     companyHelper: "Call out the next stop so viewers know where the dust is settling.",
     promptLabel: "Add producer notes (optional)",
     promptHelper: "Any spicy beats the anchors should mention? Toss them in.",
@@ -206,6 +209,9 @@ export const breakingTheme: NewsGeneratorTheme = {
     glamourHelper: "Upload an image or drop a URL so we can splash their face during the announcement.",
     glamourPublicHelper: "Make sure the link is public so the control room can pull it instantly.",
     glamourUrlPlaceholder: "https://example.com/their-press-shot.png",
+    namePlaceholder: "e.g. Riley “Drama Desk” Devlin",
+    companyPlaceholder: "e.g. Beefy the Bull",
+    promptPlaceholder: "Optional: add spicy backstory for the anchors",
     errorPrefix: "Our newsroom router glitched",
     emptyStateTitle: "No bulletin yet",
     emptyStateDescription:
@@ -304,14 +310,14 @@ export const cobaltTheme: NewsGeneratorTheme = {
   },
   story: {
     mainInstructions:
-      "Craft a neon-soaked personnel alert about profile_name being poached to company. Lean into slick corporate intrigue with confident presenter voice and concise 350-character slides.",
+      "Generate a funny breaking news story about profile_name being traded to company in a shocking move that's shaking up the industry. Use clever, satirical humor to highlight the absurdity of treating workplace moves like sports trades—complete with drama, speculation, and fake insider quotes. Don't mention any shows directly. Keep the text on each slide under 500 characters.",
     templatePic: "https://images.iwasthere.today/tbpn-poached.png",
   },
   copy: {
     heroChip: "Personnel News",
     heroTitle: "Confirm the poach",
     heroDescription:
-      "Lock in who just got scooped, where they’re landing, and the glamorous headshot we’ll flash on screen.",
+      "Lock in who just got scooped, where they're landing, and the glamorous headshot we'll flash on screen.",
     nameLabel: "Who’s defecting?",
     nameHelper: "We'll slot their name into the personnel ticker in blazing neon.",
     companyLabel: "New roster spot",
@@ -322,6 +328,9 @@ export const cobaltTheme: NewsGeneratorTheme = {
     glamourHelper: "Choose an image or paste a URL so we can showcase the latest recruit.",
     glamourPublicHelper: "Ensure the link is public so the graphics desk can pull it instantly.",
     glamourUrlPlaceholder: "https://example.com/their-hero-shot.png",
+    namePlaceholder: "e.g. Casey “Neon Signal” Ortiz",
+    companyPlaceholder: "Where are they headed now?",
+    promptPlaceholder: "Optional: front-office intel for the anchors",
     errorPrefix: "Front office tablet glitched",
     emptyStateTitle: "No personnel update yet",
     emptyStateDescription:
@@ -421,7 +430,7 @@ export const signedTheme: NewsGeneratorTheme = {
   },
   story: {
     mainInstructions:
-      "Report a headline-grabbing signing about profile_name joining company. Match primetime sports coverage energy, highlight contract flavor, and keep slides punchy under 360 characters.",
+      "Generate a funny breaking news story about profile_name officially being signed by company. Use witty, satirical humor capturing the drama, hype, and absurd press-release energy of major talent signings—like it’s both a corporate power move and a pop culture event. Don’t mention any shows directly. Keep the text on each slide under 500 characters.",
     templatePic: "https://images.iwasthere.today/tbpn-signed.png",
   },
   copy: {
@@ -439,6 +448,9 @@ export const signedTheme: NewsGeneratorTheme = {
     glamourHelper: "Choose an image or URL so the signing graphic pops on screen.",
     glamourPublicHelper: "Confirm the link is public so the graphics desk can grab it instantly.",
     glamourUrlPlaceholder: "https://example.com/player-shot.png",
+    namePlaceholder: "e.g. Jordan “Lightning Ink” Vega",
+    companyPlaceholder: "Which roster sealed the deal?",
+    promptPlaceholder: "Optional: contract flavor text for the anchors",
     errorPrefix: "Signing desk router glitched",
     emptyStateTitle: "No signing queued",
     emptyStateDescription:
@@ -537,7 +549,7 @@ export const fundingTheme: NewsGeneratorTheme = {
   },
   story: {
     mainInstructions:
-      "Announce a funding round with profile_name and company, spotlighting lead investors and why the raise matters. Embrace upbeat business cable energy with crisp 360-character slides.",
+      "Generate a funny breaking news story about profile_name raising a new funding round led by company. i.e BREAKING: profile_name raises $100M from company. Use sharp, satirical humor inspired by prestige tech dramas—think corporate chaos, startup delusion, and inflated valuations—but don’t reference any shows by name. Keep the text on each slide under 500 characters.",
     templatePic: "https://images.iwasthere.today/tbpn-funding-news.png",
   },
   copy: {
@@ -555,6 +567,9 @@ export const fundingTheme: NewsGeneratorTheme = {
     glamourHelper: "Upload art or paste a URL so the card features the founders on screen.",
     glamourPublicHelper: "Double-check the link is public so the graphics desk can pull it instantly.",
     glamourUrlPlaceholder: "https://example.com/founder-shot.png",
+    namePlaceholder: "e.g. Priya from Quantum Mango",
+    companyPlaceholder: "Who’s leading the round?",
+    promptPlaceholder: "Optional: valuation notes or investor color",
     errorPrefix: "Funding desk modem glitched",
     emptyStateTitle: "No funding card yet",
     emptyStateDescription:
@@ -653,7 +668,7 @@ export const profileTheme: NewsGeneratorTheme = {
   },
   story: {
     mainInstructions:
-      "Deliver a glam newsroom hit about profile_name debuting a new company profile picture. Celebrate the glow-up with playful fashion-desk commentary, keeping each slide under 340 characters.",
+      "Generate a funny breaking news story about profile_name updating their profile picture on company. i.e BREAKING: profile_name updates their profile picture on company. Treat this tiny act like a world-altering announcement—with fake analysts, dramatic quotes, and exaggerated public reactions. Use sharp, satirical humor but don’t reference any shows directly. Keep the text on each slide under 500 characters.",
     templatePic: "https://images.iwasthere.today/tbpn-new-profile-pic.png",
   },
   copy: {
@@ -671,6 +686,9 @@ export const profileTheme: NewsGeneratorTheme = {
     glamourHelper: "Select a file or paste a URL so we can run it on loop.",
     glamourPublicHelper: "Make sure the link is public so the newsroom can grab it instantly.",
     glamourUrlPlaceholder: "https://example.com/new-profile-pic.png",
+    namePlaceholder: "e.g. Mina “Studio Glow” Reyes",
+    companyPlaceholder: "Where is this avatar debuting? e.g. Twitter",
+    promptPlaceholder: "Optional: glam squad notes for the hosts",
     errorPrefix: "Photo desk modem glitched",
     emptyStateTitle: "No profile update queued",
     emptyStateDescription:
