@@ -99,7 +99,7 @@ export const EndSlide: React.FC<EndSlideProps> = ({ callToAction, theme }) => {
           color: theme.end.subtitleColor,
         }}
       >
-        https://tbpn-video.vercel.app
+        https://tbpn-video-generator.vercel.app/
       </span>
       <div
         style={{

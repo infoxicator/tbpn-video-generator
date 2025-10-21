@@ -205,20 +205,25 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
           ) : null}
 
           {!pending && inputProps ? (
-            <div className={cn("overflow-hidden rounded-[28px] mb-12 mt-8 aspect-[9/16]", theme.playerFrameClassName)}>
-              <Player
-                component={Main}
-                inputProps={inputProps}
-                durationInFrames={DURATION_IN_FRAMES}
-                fps={COMPOSITION_FPS}
-                compositionHeight={COMPOSITION_HEIGHT}
-                compositionWidth={COMPOSITION_WIDTH}
-                style={{ width: "100%", height: "100%" }}
-                controls
-                autoPlay
-                loop
-              />
-            </div>
+            <>
+              <div className={cn("overflow-hidden rounded-[28px] mb-6 mt-8 aspect-[9/16]", theme.playerFrameClassName)}>
+                <Player
+                  component={Main}
+                  inputProps={inputProps}
+                  durationInFrames={DURATION_IN_FRAMES}
+                  fps={COMPOSITION_FPS}
+                  compositionHeight={COMPOSITION_HEIGHT}
+                  compositionWidth={COMPOSITION_WIDTH}
+                  style={{ width: "100%", height: "100%" }}
+                  controls
+                  autoPlay
+                  loop
+                />
+              </div>
+              <div className="mb-12">
+                <RenderControls inputProps={inputProps} appearance={theme.renderControlsAppearance} />
+              </div>
+            </>
           ) : null}
 
           {!pending && !inputProps ? (
@@ -368,9 +373,6 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
           </div>
         </form>
 
-        {inputProps ? (
-          <RenderControls inputProps={inputProps} appearance={theme.renderControlsAppearance} />
-        ) : null}
         <Spacing />
         <Spacing />
         <Spacing />
