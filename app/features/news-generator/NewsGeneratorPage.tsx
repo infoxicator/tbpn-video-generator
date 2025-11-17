@@ -248,7 +248,16 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
           <div className={cn("px-7 py-9 md:px-12 md:py-12 flex flex-col gap-7", theme.panelClassName)}>
             <div>
               <p className={theme.chipClassName}>{theme.copy.heroChip}</p>
-              <h2 className="tbpn-headline text-4xl md:text-5xl text-white mt-4">{theme.copy.heroTitle}</h2>
+              <div className="flex items-center gap-4 mt-4">
+                <h2 className="tbpn-headline text-4xl md:text-5xl text-white">{theme.copy.heroTitle}</h2>
+                {theme.id === "tbpn-jsnation" && (
+                  <img 
+                    src="https://jsnation.us/img/logo.svg" 
+                    alt="JSNation Logo" 
+                    className="h-12 md:h-16 w-auto"
+                  />
+                )}
+              </div>
               <p className={cn("text-sm md:text-base mt-4 max-w-2xl", theme.heroDescriptionClassName)}>
                 {theme.copy.heroDescription}
               </p>

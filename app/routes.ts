@@ -9,6 +9,8 @@ export default [
   route("/signed", "./signed-news.tsx"),
   route("/funding-news", "./funding-news.tsx"),
   route("/new-profile-pic", "./new-profile-pic.tsx"),
+  route("/jsnation", "./jsnation-news.tsx"),
+  route("/react-summit", "./react-summit-news.tsx"),
   route("/sample", "./video-news-sample.tsx"),
   route("/mcp-ui-renderer", "./mcp-ui-renderer.tsx"),
   route("/api/lambda/progress", "./progress.tsx"),

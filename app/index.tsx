@@ -57,6 +57,18 @@ const MENU_ITEMS: MenuItem[] = [
     description: "Reveal a refreshed headshot with the spotlight-style profile package.",
     themeKey: "profile",
   },
+  {
+    path: "/jsnation",
+    title: "JSNation Conference",
+    description: "Celebrate JavaScript excellence with the JSNation conference theme—perfect for speakers and community highlights.",
+    themeKey: "jsnation",
+  },
+  {
+    path: "/react-summit",
+    title: "React Summit US",
+    description: "Celebrate React excellence with the React Summit US theme—perfect for speakers and community highlights.",
+    themeKey: "reactSummit",
+  },
 ];
 
 const basePreviewImages = {
@@ -69,6 +81,8 @@ const basePreviewImages = {
   signedNewsroom: "https://images.iwasthere.today/alex-signed.jpeg",
   tradeNewsroom: "https://images.iwasthere.today/traded-brent.png",
   profileNewsroom: "https://images.iwasthere.today/roelof-new-pfp.jpeg",
+  jsnationNewsroom: "https://images.iwasthere.today/combined-1758063844495-cfp5dy.png",
+  reactSummitNewsroom: "https://images.iwasthere.today/combined-1758063844495-cfp5dy.png",
 };
 
 const previewDataByTheme: Record<MenuItem["themeKey"], StoryData> = {
@@ -215,7 +229,53 @@ const previewDataByTheme: Record<MenuItem["themeKey"], StoryData> = {
             "text": "Public reactions are mixed: ‘Iconic,’ tweets one fan; ‘I’m updating mine in solidarity,’ vows another. Twitter HQ on high alert in case Roelof also updates his header image. Stay tuned!"
         }
     ]
-}
+},
+  jsnation: {
+    title: "BREAKING: Sarah Chen Takes Center Stage at JSNation 2025",
+    date: "2024-12-15T14:30:00Z",
+    mainImage: basePreviewImages.jsnationNewsroom,
+    slides: [
+      {
+        image: basePreviewImages.jsnationNewsroom,
+        text: "In a move that sent shockwaves through the JavaScript community, Sarah Chen has been announced as a keynote speaker at JSNation 2025. The conference organizers reportedly had to upgrade the venue's Wi-Fi capacity after the announcement went viral.",
+      },
+      {
+        image: basePreviewImages.jsnationNewsroom,
+        text: "Sources close to the event say Sarah's talk will cover 'The Future of JavaScript: When AI Writes Better Code Than You.' Attendees are already forming queues, with some camping outside the venue since last week.",
+      },
+      {
+        image: basePreviewImages.jsnationNewsroom,
+        text: "The JavaScript community is abuzz with speculation. One developer tweeted, 'I've been waiting for this moment my entire career.' Another added, 'This is bigger than when async/await was introduced.'",
+      },
+      {
+        image: basePreviewImages.jsnationNewsroom,
+        text: "Conference organizers have confirmed that Sarah will also be hosting a special workshop on 'Surviving the JavaScript Ecosystem in 2025.' Tickets sold out in 3.7 seconds. The secondary market is already pricing them at 'one kidney' per ticket.",
+      },
+    ],
+  },
+  reactSummit: {
+    title: "BREAKING: Alex Johnson Headlines React Summit US 2025",
+    date: "2024-12-15T14:30:00Z",
+    mainImage: basePreviewImages.reactSummitNewsroom,
+    slides: [
+      {
+        image: basePreviewImages.reactSummitNewsroom,
+        text: "The React community is in a frenzy as Alex Johnson has been confirmed as the opening keynote speaker at React Summit US 2025. React developers worldwide are reportedly updating their LinkedIn statuses in solidarity.",
+      },
+      {
+        image: basePreviewImages.reactSummitNewsroom,
+        text: "Alex's talk, titled 'React in 2025: When Hooks Become Superpowers,' has already generated over 10,000 GitHub stars on a placeholder repository. The React team is said to be 'taking notes.'",
+      },
+      {
+        image: basePreviewImages.reactSummitNewsroom,
+        text: "Industry insiders report that major tech companies are sending entire teams to witness what's being called 'the most anticipated React talk since Suspense was announced.' Coffee shops near the venue are preparing for a surge in demand.",
+      },
+      {
+        image: basePreviewImages.reactSummitNewsroom,
+        text: "The React Summit organizers have announced a special 'React Masterclass' with Alex, where attendees will learn to 'think in components' and 'breathe in JSX.' Early bird tickets are already being resold for the price of a small startup.",
+      },
+    ],
+  },
 };
 
 export default function IndexRoute() {
