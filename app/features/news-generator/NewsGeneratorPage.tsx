@@ -158,7 +158,7 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
     }
     setPending(true);
     try {
-      const res = await fetch("https://postman.flows.pstmn.io/api/default/get-mcp-ui-stories", {
+      const res = await fetch("https://postman.flows.pstmn.io/api/default/react-summit-stories", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -254,6 +254,13 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
                   <img 
                     src="https://jsnation.us/img/logo.svg" 
                     alt="JSNation Logo" 
+                    className="h-12 md:h-16 w-auto"
+                  />
+                )}
+                {theme.id === "tbpn-react-summit" && (
+                  <img 
+                    src="https://reactsummit.us/img/logo.svg?v5" 
+                    alt="React Summit Logo" 
                     className="h-12 md:h-16 w-auto"
                   />
                 )}

@@ -12,7 +12,7 @@ export async function clientLoader({ request }: { request: Request }): Promise<G
   }
 
   try {
-    const res = await fetch("https://postman.flows.pstmn.io/api/default/get-mcp-ui-stories", {
+    const res = await fetch("https://postman.flows.pstmn.io/api/default/react-summit-stories", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

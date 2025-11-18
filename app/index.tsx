@@ -82,7 +82,7 @@ const basePreviewImages = {
   tradeNewsroom: "https://images.iwasthere.today/traded-brent.png",
   profileNewsroom: "https://images.iwasthere.today/roelof-new-pfp.jpeg",
   jsnationNewsroom: "https://images.iwasthere.today/combined-1758063844495-cfp5dy.png",
-  reactSummitNewsroom: "https://images.iwasthere.today/combined-1758063844495-cfp5dy.png",
+  reactSummitNewsroom: "https://images.iwasthere.today/combined-1763493357924-131yim.png",
 };
 
 const previewDataByTheme: Record<MenuItem["themeKey"], StoryData> = {
