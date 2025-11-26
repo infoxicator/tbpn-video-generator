@@ -264,6 +264,15 @@ export const NewsGeneratorPage: React.FC<GeneratorProps> = ({ loaderData, theme 
                     className="h-12 md:h-16 w-auto"
                   />
                 )}
+                {theme.id === "tbpn-react-advanced-london" && (
+                  <div className="bg-white rounded-full p-2">
+                    <img 
+                      src="https://reactadvanced.com/img/logo.svg" 
+                      alt="React Advanced London Logo" 
+                      className="h-8 md:h-12 w-auto"
+                    />
+                  </div>
+                )}
               </div>
               <p className={cn("text-sm md:text-base mt-4 max-w-2xl", theme.heroDescriptionClassName)}>
                 {theme.copy.heroDescription}

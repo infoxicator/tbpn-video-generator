@@ -944,6 +944,125 @@ export const reactSummitTheme: NewsGeneratorTheme = {
   },
 };
 
+export const reactAdvancedLondonTheme: NewsGeneratorTheme = {
+  id: "tbpn-react-advanced-london",
+  pageClassName: "bg-[#000000] tbpn-body min-h-screen text-[#ffffff] pb-16",
+  panelClassName: "react-advanced-london-panel text-[#ffffff]",
+  heroDescriptionClassName: "text-[#00ff9d]",
+  helperTextClassName: "text-[#00cc7a]",
+  labelClassName: "react-advanced-london-label",
+  chipClassName: "react-advanced-london-chip",
+  inputClassName: "bg-[#0a0a0a] border-[#1a1a1a] focus:border-[#00ff9d] text-[#ffffff] placeholder:text-[#666666]",
+  imageModeActiveClassName: "border-[#00ff9d] bg-[#001a10] text-white",
+  imageModeInactiveClassName:
+    "border-[#1a1a1a] bg-[#0a0a0a] text-[#00cc7a] hover:text-[#00ff9d] hover:border-[#00ff9d]",
+  glamourPublicHelperClassName: "text-[#00cc7a]",
+  urlPreviewBorderClassName: "border-[#1a1a1a]",
+  loaderFrameClassName: "border border-[#00ff9d] shadow-[0_45px_140px_rgba(0,255,157,0.55)]",
+  loaderBackgroundClassName: "bg-gradient-to-br from-[#001a10] via-[#000a06] to-[#000000]",
+  loaderHighlightClassName: "bg-[radial-gradient(circle_at_top,#00ff9d_0%,rgba(0,26,16,0)_65%)]",
+  playerFrameClassName: "shadow-[0_35px_110px_rgba(0,0,0,0.8)] border border-[#00ff9d]",
+  emptyFrameClassName: "border-[#1a1a1a] bg-[#0a0a0a]",
+  errorPanelClassName:
+    "rounded-[18px] border border-[#00cc7a] bg-[#001a10] text-[#00ff9d] text-sm px-5 py-4 shadow-[0_0_25px_rgba(0,255,157,0.35)]",
+  nerdButtonClassName:
+    "tbpn-subheadline text-[11px] uppercase tracking-[0.3em] text-[#00ff9d] border border-[#00cc7a] rounded-full px-4 py-2 transition-colors duration-200 hover:bg-[#001a10]",
+  nerdPanelClassName:
+    "w-full rounded-[18px] border border-[#1a1a1a] bg-[#0a0a0a] p-4 shadow-[0_0_35px_rgba(0,255,157,0.35)]",
+  nerdTextClassName: "text-xs leading-6 text-[#00ff9d]",
+  nerdEmbedBorderClassName: "border-[#0a1a1a]",
+  primaryButtonClassName:
+    "tbpn-headline tracking-[0.22em] text-sm h-12 px-8 bg-[#00ff9d] text-[#000000] border-0 hover:bg-[#00cc7a] disabled:bg-[#001a10] disabled:text-[#666666]",
+  noDataTitleClassName: "tbpn-headline text-xl text-white",
+  noDataDescriptionClassName: "mt-3 text-sm text-[#00cc7a]",
+  secondaryPanelClassName: "react-advanced-london-panel-secondary text-[#00ff9d]",
+  placeholderSpinnerColor: "#00ff9d",
+  renderControlsAppearance: {
+    buttonClassName:
+      "border border-[#00ff9d] bg-[linear-gradient(90deg,rgba(0,26,16,0.92),rgba(0,10,6,0.9))] shadow-[0_0_24px_rgba(0,255,157,0.18)] hover:border-[#00cc7a] hover:shadow-[0_0_32px_rgba(0,204,122,0.28)]",
+    contentClassName: "text-[#ffffff]",
+    iconClassName: "h-2.5 w-2.5 rounded-full bg-[#00ff9d] shadow-[0_0_12px_rgba(0,255,157,0.8)]",
+    spinnerColor: "#00cc7a",
+    labelClassName: "tbpn-subheadline text-xs tracking-[0.32em] uppercase",
+    shareLabel: "Share this React Advanced London segment",
+    hoverOverlayClassName: "bg-[radial-gradient(circle_at_top,rgba(0,255,157,0.35),rgba(0,0,0,0))]",
+  },
+  imageUploadAppearance: {
+    dropzoneClassName: "bg-[#0a0a0a] text-[#ffffff] border-[#1a1a1a]",
+    dropzoneHoverClassName: "hover:border-[#00ff9d]",
+    statusTextClassName: "text-[#ffffff]",
+    uploadingTextClassName: "text-[#00cc7a]",
+    errorTextClassName: "text-[#ff6b6b]",
+    successTextClassName: "text-[#00ff9d]",
+    previewBorderClassName: "border-[#1a1a1a]",
+  },
+  video: {
+    background: "#000000",
+    fallbackImageBackground: "#0a0a0a",
+    imageOverlayGradient: "linear-gradient(135deg, rgba(0, 26, 16, 0.75), rgba(0, 0, 0, 0.92))",
+    textureDotColor: "rgba(0,255,157,0.18)",
+    textPanelBackground: "rgba(0, 26, 16, 0.9)",
+    textPanelBorderColor: "rgba(0, 255, 157, 0.28)",
+    textPanelShadow: "0 30px 60px rgba(0,0,0,0.7)",
+    textColor: "#ffffff",
+    indicatorActive: "#00ff9d",
+    indicatorGlow: "rgba(0,255,157,0.6)",
+    indicatorInactive: "rgba(255,255,255,0.3)",
+    title: {
+      fallbackGradient: "linear-gradient(180deg, #001a10 0%, #000000 100%)",
+      overlayGradient: "linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.8))",
+      containerBackground: "linear-gradient(90deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3))",
+      badgeBackground: "rgba(0, 255, 157, 0.22)",
+      badgeBorder: "rgba(0, 255, 157, 0.4)",
+      badgeTextColor: "#000000",
+    },
+    end: {
+      background: "linear-gradient(180deg, #001a10 0%, #000000 100%)",
+      accent: "#00ff9d",
+      subtitleColor: "rgba(255,255,255,0.75)",
+      textColor: "#ffffff",
+    },
+  },
+  story: {
+    mainInstructions:
+      "Generate a funny breaking news story about profile_name hanging out at or joining React Advanced London with company. Use energetic, tech-focused humor celebrating React and web development culture. Keep the text on each slide under 500 characters.",
+    templatePic: "https://images.iwasthere.today/react-advanced-london-2025.png",
+  },
+  copy: {
+    heroChip: "React Advanced London",
+    heroTitle: "We met at",
+    heroDescription:
+      "These two legends met at React Advanced London and had a great time together.",
+    nameLabel: "Your name",
+    nameHelper: "We'll feature your name in the React Advanced London style.",
+    companyLabel: "Who did you hang out with",
+    companyHelper: "Name the person or people you connected with at React Advanced London.",
+    promptLabel: "Add conference notes (optional)",
+    promptHelper: "Mention your talk topic, role, or any highlights from the event.",
+    glamourLabel: "Upload your photo",
+    glamourHelper: "Choose an image or paste a URL for your conference headshot.",
+    glamourPublicHelper: "Make sure the link is public so we can fetch it instantly.",
+    glamourUrlPlaceholder: "https://example.com/your-photo.png",
+    namePlaceholder: "e.g. Sarah Chen",
+    companyPlaceholder: "e.g. at the afterparty",
+    promptPlaceholder: "Optional: talk title or conference highlights",
+    errorPrefix: "Conference desk glitched",
+    emptyStateTitle: "No segment yet",
+    emptyStateDescription:
+      'Fill in the details and hit "Render the TBPN segment" to preview the React Advanced London announcement.',
+    nerdToggleOpen: "For React nerds 🤓",
+    nerdToggleClose: "Close the React notes",
+    nerdDescription:
+      "This React Advanced London generator runs on Remotion, Nano Banana and Cloudflare Workers. We gather story beats via a Postman Flow and stitch the video together in the browser before shipping it off for rendering.",
+    loaderSubtitle: "⚛️ React Advanced London news desk checking the wires",
+    primaryButton: "Render the TBPN segment",
+    missingNameCompanyError: "We need a name and conference/company to create the announcement.",
+    uploadInProgressError: "Hang tight—our upload gremlins are still finishing their magic.",
+    missingProfileError: "Speaker photo required—upload one or drop in a URL.",
+    invalidProfileUrlError: "The URL needs to start with http:// or https:// so we can fetch the photo.",
+  },
+};
+
 export const themes = {
   emerald: emeraldTheme,
   breaking: breakingTheme,
@@ -953,6 +1072,7 @@ export const themes = {
   profile: profileTheme,
   jsnation: jsnationTheme,
   reactSummit: reactSummitTheme,
+  reactAdvancedLondon: reactAdvancedLondonTheme,
 };
 
 export type { NewsGeneratorTheme };

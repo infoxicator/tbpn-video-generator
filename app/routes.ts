@@ -11,6 +11,7 @@ export default [
   route("/new-profile-pic", "./new-profile-pic.tsx"),
   route("/jsnation", "./jsnation-news.tsx"),
   route("/react-summit", "./react-summit-news.tsx"),
+  route("/react-advanced-london", "./react-advanced-london-news.tsx"),
   route("/sample", "./video-news-sample.tsx"),
   route("/mcp-ui-renderer", "./mcp-ui-renderer.tsx"),
   route("/api/lambda/progress", "./progress.tsx"),

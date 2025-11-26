@@ -69,6 +69,12 @@ const MENU_ITEMS: MenuItem[] = [
     description: "Celebrate React excellence with the React Summit US theme—perfect for speakers and community highlights.",
     themeKey: "reactSummit",
   },
+  {
+    path: "/react-advanced-london",
+    title: "React Advanced London",
+    description: "Celebrate React excellence with the React Advanced London theme—perfect for speakers and community highlights.",
+    themeKey: "reactAdvancedLondon",
+  },
 ];
 
 const basePreviewImages = {
@@ -83,6 +89,7 @@ const basePreviewImages = {
   profileNewsroom: "https://images.iwasthere.today/roelof-new-pfp.jpeg",
   jsnationNewsroom: "https://images.iwasthere.today/combined-1758063844495-cfp5dy.png",
   reactSummitNewsroom: "https://images.iwasthere.today/combined-1763493357924-131yim.png",
+  reactAdvancedLondonNewsroom: "https://images.iwasthere.today/combined-1763493357924-131yim.png",
 };
 
 const previewDataByTheme: Record<MenuItem["themeKey"], StoryData> = {
@@ -273,6 +280,29 @@ const previewDataByTheme: Record<MenuItem["themeKey"], StoryData> = {
       {
         image: basePreviewImages.reactSummitNewsroom,
         text: "The React Summit organizers have announced a special 'React Masterclass' with Alex, where attendees will learn to 'think in components' and 'breathe in JSX.' Early bird tickets are already being resold for the price of a small startup.",
+      },
+    ],
+  },
+  reactAdvancedLondon: {
+    title: "BREAKING: Jamie Smith Headlines React Advanced London 2025",
+    date: "2024-12-15T14:30:00Z",
+    mainImage: basePreviewImages.reactAdvancedLondonNewsroom,
+    slides: [
+      {
+        image: basePreviewImages.reactAdvancedLondonNewsroom,
+        text: "In a stunning announcement, Jamie Smith has been revealed as the headline speaker for React Advanced London 2025. Developers across the UK are reportedly canceling their holiday plans to attend.",
+      },
+      {
+        image: basePreviewImages.reactAdvancedLondonNewsroom,
+        text: "Jamie's talk, 'Advanced Patterns for the Modern Web,' promises to unveil techniques so cutting-edge they might be considered futuristic. The London tech scene is buzzing with anticipation.",
+      },
+      {
+        image: basePreviewImages.reactAdvancedLondonNewsroom,
+        text: "Sources say tickets for the event are selling faster than a hot new npm package. Organizers are considering adding extra seating on the roof to accommodate the demand.",
+      },
+      {
+        image: basePreviewImages.reactAdvancedLondonNewsroom,
+        text: "Attendees can expect deep dives into React internals, performance optimizations, and maybe even a surprise appearance by a famous open-source maintainer. It's going to be legendary.",
       },
     ],
   },
